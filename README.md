@@ -1,4 +1,4 @@
-VRTrainning
+VRTraining
 ===========
 
-Development of trainning and analysis of issues using virtual reality.
+Development of training and analysis of issues using virtual reality.
