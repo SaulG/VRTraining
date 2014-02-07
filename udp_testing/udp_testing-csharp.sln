@@ -1,7 +1,7 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
-Project("{4382BF9C-D519-95C6-D4FB-001728BA75E7}") = "serialPort", "Assembly-CSharp-firstpass-vs.csproj", "{1F99324C-0F2D-D58B-6CBF-032515916585}"
+Project("{9A117AF9-F87C-FEA5-587E-F1A5C93B6BFA}") = "udp_testing", "Assembly-CSharp-vs.csproj", "{6C2D19FE-1FBB-3297-D1B2-41221215EBDC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,15 +9,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1F99324C-0F2D-D58B-6CBF-032515916585}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F99324C-0F2D-D58B-6CBF-032515916585}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F99324C-0F2D-D58B-6CBF-032515916585}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F99324C-0F2D-D58B-6CBF-032515916585}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C2D19FE-1FBB-3297-D1B2-41221215EBDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C2D19FE-1FBB-3297-D1B2-41221215EBDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C2D19FE-1FBB-3297-D1B2-41221215EBDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C2D19FE-1FBB-3297-D1B2-41221215EBDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-										GlobalSection(MonoDevelopProperties) = preSolution
+											GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
