@@ -1,38 +1,54 @@
+//libreria de simpleopenni
 import SimpleOpenNI.*;
+
 SimpleOpenNI  kinect;
 
+//preferencias antes de iniciar
 void setup()
 {
-  //size of the window
+  //proporcion de la ventana
   size(640, 480);
-  //object kinect
+  
+  //contiene todo lo relacionado con los datos del kinect
   kinect = new SimpleOpenNI(this);
-  //enable the depth feature of the kinect
+  
+  //verifica que la camara este conectada
+  if (kinect.isInit() == false)
+  {
+    //en caso de no estar conectada salir del programa
+    println("Es posible que la camara no este conectada."); 
+    exit();
+    return;
+  }
+  
+  //habilita el mapa de profundidad
   kinect.enableDepth();  
 }
 
 void draw()
 {
-  //reload data from kinect
+  //actualiza datos del kinect
   kinect.update();
 
-  //save image from the depth image of the kinect
+  //guardar la imagen del mapa de profundidad 
   PImage depthImage = kinect.depthImage();
  
-  //set the image in the window
+  //colocar la imagen de profundidad en x: 0  y: 0
   image(depthImage, 0, 0);
 }
 
+//al presionar el raton
 void mousePressed(){
-  //get unidimensional array of all the millimeters values where
-  //each value is the distance between the kinect and the object 
-  //in front of the camera and its represented as the size of the image 640 * 480
+  //vector de enteros con valor de la distancia de cada pixel
+  //obtenido por el sensor infrarrojo
+  
+  //el tamanio del vector es de 307,200 pixeles
   int[] depthValues = kinect.depthMap();
-  //get the index of the unidimensional array
+  
+  //obtener el index del vector en la imagen
   int clickPosition = mouseX + (mouseY * 640);
-  //get the millimeters value 
-  int mm = depthValues[clickPosition];
-  //print out the millimeters value from the pixel selected
-  //this value is what the kinect receives using IR camera
-  println("mm: " + mm/10);
+  //obtiene el valor de los milimetros
+  int mm = ((depthValues[clickPosition])/10);
+  //imprimie la cantidad de milimetros
+  println("mm: " + mm);
 }
