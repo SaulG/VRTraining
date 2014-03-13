@@ -1,6 +1,6 @@
 ﻿#pragma strict
 
-var turn = 300;
+var turn : int = 300;
 var flag : boolean = true;
 function Update () {
 	if(Input.GetKeyDown(KeyCode.Space)){
