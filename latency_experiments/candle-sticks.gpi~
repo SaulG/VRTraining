@@ -1,0 +1,3 @@
+set title "Latencia de prototipo."
+set xrange[0:6]
+set yrange[0:6]

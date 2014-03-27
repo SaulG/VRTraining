@@ -1,0 +1,4 @@
+data = read.table('../latencias.dat')
+sink('summary')
+summary(data)
+q()

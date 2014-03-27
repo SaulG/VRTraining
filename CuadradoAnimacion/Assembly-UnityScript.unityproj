@@ -50,9 +50,11 @@
      <Compile Include="Assets\Adventure Scripts\PlatformMover.js" />
      <Compile Include="Assets\MisScripts\MousePick.js" />
      <Compile Include="Assets\MisScripts\MoveCube.js" />
+     <Compile Include="Assets\MisScripts\SendMessageOnTrigger.js" />
      <Compile Include="Assets\MisScripts\SimpleMove.js" />
      <Compile Include="Assets\MisScripts\SimpleRotate.js" />
      <Compile Include="Assets\MisScripts\SimpleRotateToggle.js" />
+     <Compile Include="Assets\MisScripts\ToggleIsTrigger.js" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
      <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Multiply.shader" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
