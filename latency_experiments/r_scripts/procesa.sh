@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#Corre script en R para obtener maximos, minimos, mediana y promedio
+Rscript summary_latency.R
+
 #primero se eliminan las comillas, luego los dos puntos y por ultimo Qu.
 #Despues awk imprime por cada segunda columna:
 #
