@@ -1,0 +1,6 @@
+data = read.table('latencias.dat')
+sink('latencias.txt')
+data = summary(data)
+write.table(data, row.names = FALSE, col.names = FALSE, append = FALSE, sep= " " )
+sink(NULL)
+q()

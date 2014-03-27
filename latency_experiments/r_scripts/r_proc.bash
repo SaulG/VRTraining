@@ -1,3 +1,4 @@
-Rscript quantiles.R
-sed 's/ //g' summary > stat
-./parse.awk -F ":" -v hdr=${gamma} stat > fast.${gamma}.stat
+Rscript summary_latency.R
+sed 's/"//g' latencias.txt > latencias.sed
+sed 's/ //g' latencias.sed > latencias.sed.filtro
+./filtra.awk -F ":" latencias.sed.filtro > latencias.awk
