@@ -8,7 +8,7 @@ set boxwidth 0.2 absolute
 set xrange [ 0 : 6 ]
 
 #nombre de etiquetas en un cierto valor
-set xtics ("A" 1, "B" 2)
+set xtics ("A" 1, "B" 2, "C" 3, "D" 4)
 
 #para quitar leyendas en las graficas
 set key off

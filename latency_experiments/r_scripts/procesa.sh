@@ -17,12 +17,12 @@ Rscript summary_latency.R
 #   $2 los valores de  3.00, 7.00, 11.00, 11.64, 17.00, 20.00
 #
 # se guardan en prueba2.dat
-sed 's/\"//g' latencias.txt | sed 's/://g' | sed 's/Qu./ /g' | awk '{print $2"\t"$4"\t"$6"\t"$8"\t"$10"\t"}' > prueba2.dat
+sed 's/\"//g' latencias.txt | sed 's/://g' | sed 's/Qu./ /g' | awk '{print $2"\t"$4"\t"$6"\t"$8"\t"}' > prueba2.dat
 
 #Luego itera las cinco columnas del archivo prueba2.dat y transpone la matriz,
 #agrega un contador en la primer columna de la nueva matriz que ha sido transpuesta
 
-for i in 1 2 3 4 5; do awk -v c=$i '{print $c}' < prueba2.dat | awk '{a = a$1" "}END{print a}'; done | awk 'BEGIN{c=1}{print c" "$0; c++}' > prueba3.dat
+for i in 1 2 3 4; do awk -v c=$i '{print $c}' < prueba2.dat | awk '{a = a$1" "}END{print a}'; done | awk 'BEGIN{c=1}{print c" "$0; c++}' > prueba3.dat
 
 # remueve el archivo viejo prueba.eps
 rm prueba.eps
@@ -32,7 +32,7 @@ gnuplot prueba.plot
 open prueba.eps
 # obtiene las latencias totales de cada una de las etapas
 # y los manda a un nuevo archivo llamado totales
-awk '{print $6}' < latencias.dat > totales.dat
+awk '{print $5}' < latencias.dat > totales.dat
 #remueve el archivo viejo de totales.eps
 rm totales.eps
 #corre el script de gnuplot con los datos generados de los totales.dat

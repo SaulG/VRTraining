@@ -2,12 +2,13 @@ set term postscript eps color
 
 set key off
 set xlabel 'Tiempo (ms)'
+set xrange[0:]
 set ylabel 'Frecuencia'
 set output "totales.eps"
 
 #la cantidad de brincos por los que se grafican
 #los valores obtenidos del archivo totales dat
-binwidth = 25
+binwidth = 50
 # se asigna el valor
 set boxwidth binwidth
 #funcion que realiza la logica de los brincos

@@ -18,8 +18,7 @@ def generaDatos(cantidad_de_datos, cantidad_de_etapas):
     f.close()
     
 def main():
-    cantidad_de_datos = 100
-    cantidad_de_etapas = 5
-    print cantidad_de_datos
+    cantidad_de_datos = 30000
+    cantidad_de_etapas = 4
     generaDatos(cantidad_de_datos, cantidad_de_etapas)
 main()
