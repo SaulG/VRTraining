@@ -5,7 +5,7 @@ set term postscript eps color
 set boxwidth 0.2 absolute
 
 #rango del eje x
-set xrange [ 0 : 6 ]
+set xrange [ 0 : 5 ]
 
 #rango del eje y
 set yrange [ 0 : 100 ]
