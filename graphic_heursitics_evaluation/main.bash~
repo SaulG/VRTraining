@@ -1,0 +1,7 @@
+#!/bin/bash
+
+python genera_valores.py > datos_evaluacion.dat
+
+bash promedios_clasificaciones_heuristicas.bash
+
+#Gnuplot lista_heuristicas_prom.gpi

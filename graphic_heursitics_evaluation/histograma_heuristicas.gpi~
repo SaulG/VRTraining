@@ -1,0 +1,15 @@
+set term postscript eps color
+set output "histograma.eps"
+
+set title "Promedio de las evaluaciones heur\237sticas"
+set xlabel "N\250mero de heur\237stica"
+set ylabel "Escala de evaluaci\243n"
+set ytics "1"
+set xtics "1"
+set yrange [0:4]
+set xrange [-2:14]
+set xtics ("H1" 0, "H2"  1, "H3" 2, "H4" 3, "H5" 4, "H6" 5, "H7" 6, "H8" 7, "H9" 8, "H10" 9, "H11" 10, "H12"  11)
+#set boxwidth 0.9
+set style fill solid border -1
+set key off
+plot 'promedios_datos_evaluacion.dat' with boxes lc rgb "#dcccff"
