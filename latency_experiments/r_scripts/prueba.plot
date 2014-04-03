@@ -7,6 +7,9 @@ set boxwidth 0.2 absolute
 #rango del eje x
 set xrange [ 0 : 6 ]
 
+#rango del eje y
+set yrange [ 0 : 100 ]
+
 #nombre de etiquetas en un cierto valor
 set xtics ("A" 1, "B" 2, "C" 3, "D" 4)
 
