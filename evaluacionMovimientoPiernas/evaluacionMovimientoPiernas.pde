@@ -2,6 +2,12 @@ import SimpleOpenNI.*;
 
 SimpleOpenNI context;
 
+//ultimos valores de las coordenadas de rodilla derecha e izquierda
+PVector ultimoRodillaDerecha;
+PVector ultimoRodillaIzquierda;
+
+//umbral para determinar movimiento aceptable entre coordenadas
+public static final int UMBRAL = 3;
 
 void setup(){
   //dimensiones de la ventana a crearse
@@ -10,6 +16,10 @@ void setup(){
   //inicializa objeto que obtiene informacion del kinect
   context = new SimpleOpenNI(this);
   
+  //initializa los objetos vectores
+  ultimoRodillaDerecha = new PVector();
+  ultimoRodillaIzquierda = new PVector();
+
   //verifica conexion a kinect
   if(context.isInit() == false){
     println("No se puede inicializar el programa, verifique conexion con el Kinect.");
@@ -67,6 +77,8 @@ void dibujaEsqueleto(int usuarioId){
   //vectores de las rodillas en 2D
   PVector rodillaDerecha2D = new PVector();
   PVector rodillaIzquierda2D = new PVector();
+  boolean movRodDerecha;
+  boolean movRodIzquierda;
   
   //obtiene la proyeccion en 2D de las uniones
   context.convertRealWorldToProjective(rodillaDerecha, rodillaDerecha2D);
@@ -76,8 +88,58 @@ void dibujaEsqueleto(int usuarioId){
   println("Rodilla derecha 2D: "+rodillaDerecha2D);
   println("Rodilla izquierda 2D: "+rodillaIzquierda2D);
   
-  
+ 
+  //verifica que no sean nulos los ultimos valores obtenidos  
+  if( (ultimoRodillaDerecha != null) && (ultimoRodillaIzquierda != null) ){
+    
+     /*
+      Verifica que el ultimo valor x de la rodilla mas UMBRAL sea menor igual al valor actual de la rodilla derecha
+      o que el ultimo valor x de la rodilla menos el UMBRAL sea mayor igual al valor actual de la rodilla izquierda
+      
+      Ejemplo:
+      
+      Cuando hay movimiento en x 
+      
+      ultimo valor x = 516
+      actual valor x = 521
+      umbral = 3
+                          (519 <= 521) -> TRUE
+                          (513 >= 521) -> FALSE
+      
+       Cuando hay movimiento en x
 
+       ultimo valor x = 516
+  `    actual valor x = 510
+       umbral = 3
+                          (519 <= 510) -> FALSE
+                          (513 >= 510) -> TRUE
+               
+      Cuando no hay movimiento en x   
+      
+      ultimo valor x = 518
+      actual valor x = 518
+      umbral = 3                    
+      
+                          (521 <= 518) -> FALSE
+                          (515 >= 520) -> FALSE
+   
+    Lo mismo pasa con la coordenada y.            
+    */
+  
+    if ((((ultimoRodillaDerecha.x + UMBRAL) <= rodillaDerecha2D.x) || 
+        ( (ultimoRodillaDerecha.x - UMBRAL) >= rodillaDerecha2D.x)) && 
+        (((ultimoRodillaDerecha.y + UMBRAL) <= rodillaDerecha2D.y) || 
+        ( (ultimoRodillaDerecha.y - UMBRAL) >= rodillaDerecha2D.y))){
+                  //imprime camina
+                  println("************************CAMINA*****************************");
+            }
+  }
+  
+  //guarda los ultimos valores obtenidos de las rodillas
+  ultimoRodillaDerecha = rodillaDerecha2D;
+  ultimoRodillaIzquierda = rodillaIzquierda2D;
+  
+  //dibuja una linea con la union de la rodilla y el pie en ambos lados
   context.drawLimb(usuarioId, SimpleOpenNI.SKEL_RIGHT_KNEE, SimpleOpenNI.SKEL_RIGHT_FOOT);
   context.drawLimb(usuarioId, SimpleOpenNI.SKEL_LEFT_KNEE, SimpleOpenNI.SKEL_LEFT_FOOT);
 
