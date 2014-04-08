@@ -65,6 +65,10 @@ void dibujaEsqueleto(int usuarioId){
   PVector rodillaDerecha = new PVector();
   PVector rodillaIzquierda = new PVector();
   
+  //Tuve que ver el codigo fuente para entender algunas
+  //funciones debido a que no esta completamente bien documentado
+  //https://code.google.com/p/simple-openni/source/browse/trunk/SimpleOpenNI-2.0/src/p5_src/SimpleOpenNI.java?r=440
+  
   //obtener la posicion de las uniones de los esqueletos
   context.getJointPositionSkeleton(usuarioId, SimpleOpenNI.SKEL_RIGHT_KNEE, rodillaDerecha);
   context.getJointPositionSkeleton(usuarioId, SimpleOpenNI.SKEL_LEFT_KNEE, rodillaIzquierda);
