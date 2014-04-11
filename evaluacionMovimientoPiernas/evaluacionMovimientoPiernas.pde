@@ -35,7 +35,7 @@ void setup(){
   
   //color de fondo de la ventana
   background(200, 0, 0);
- 
+  textSize(30);
 }
 
 
@@ -135,7 +135,10 @@ void dibujaEsqueleto(int usuarioId){
         (((ultimoRodillaDerecha.y + UMBRAL) <= rodillaDerecha2D.y) || 
         ( (ultimoRodillaDerecha.y - UMBRAL) >= rodillaDerecha2D.y))){
                   //imprime camina
-                  println("************************CAMINA*****************************");
+                  //println("************************CAMINA*****************************");
+                  text("SE DETECTO PASO", 10, 150);
+            }else{
+              text("NO SE DETECTO NADA", 10, 80);
             }
   }
   
