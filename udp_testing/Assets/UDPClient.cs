@@ -32,20 +32,20 @@ public class UDPClient : MonoBehaviour {
 	void Update(){
 		//to avoid duplicate message received and just
 		//change the text object in case the message is different
-		if (!lastMessageReceived.Equals(currentMessage)) {
+		//if (!lastMessageReceived.Equals(currentMessage)) {
 			output_txt.text = lastMessageReceived;
 			currentMessage = lastMessageReceived;
-		}
+		//}
 	}
 
 	//Function to setting up the GUI
 	void OnGUI(){
 		//Starting the string with default message
-		lastMessageReceived = "No message received yet.";
+		//lastMessageReceived = "No message received yet.";
 		//set the default message in the object text
-		output_txt.text = lastMessageReceived;
+		//output_txt.text = lastMessageReceived;
 		//set the default message in the current message
-		currentMessage = lastMessageReceived;
+		//currentMessage = lastMessageReceived;
 
 		//Set the GUI horizontal to add the components
 		GUILayout.BeginHorizontal();
