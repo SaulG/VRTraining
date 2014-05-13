@@ -1,8 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="../udp_testing/Assets/UDPClient.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/MisScripts/UDPClient.cs">
     <Files>
-      <File FileName="../udp_testing/Assets/UDPClient.cs" Line="38" Column="5" />
+      <File FileName="../udp_testing/Assets/UDPClient.cs" Line="11" Column="1" />
+      <File FileName="Assets/MisScripts/UDPClient.cs" Line="40" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
