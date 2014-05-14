@@ -25,16 +25,24 @@ public class UDPClient : MonoBehaviour {
 	public string currentMessage;
 	//the last message received
 	public string lastMessageReceived;
-	//text object in the scene
-	//public GUIText output_txt;
+
+	public Boolean camina_usuario;
 	
 	//this function is infinity loop
 	void Update(){
 		//to avoid duplicate message received and just
 		//change the text object in case the message is different
 		//if (!lastMessageReceived.Equals(currentMessage)) {
+		//
+		//if (lastMessageReceived == "asap") {
+		//	camina_usuario = true;
+		//	Debug.Log (lastMessageReceived.ToString ());
+
+		//} else {
+	//		camina_usuario = false;
+	//	}
 		//output_txt.text = lastMessageReceived;
-		Debug.Log (lastMessageReceived.ToString ());
+		//Debug.Log(output_txt.text);
 		currentMessage = lastMessageReceived;
 		//}
 	}
@@ -124,9 +132,9 @@ public class UDPClient : MonoBehaviour {
 				//debug
 				print("Taking message");
 				//Getting the data from the bytes array
-				lastMessageReceived = Encoding.ASCII.GetString(data, 0, data.Length);
+				lastMessageReceived =  System.Text.Encoding.ASCII.GetString(data, 0, data.Length);
 				//debug
-				print(lastMessageReceived);
+				//print(lastMessageReceived);
 				//To handle errors
 			} catch (Exception e){
 				//debug

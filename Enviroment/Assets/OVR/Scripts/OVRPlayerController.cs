@@ -51,6 +51,8 @@ public class OVRPlayerController : OVRComponent
 	protected CharacterController 	Controller 		 = null;
 	protected OVRCameraController 	CameraController = null;
 
+	public UDPClient udpDatos;
+
 	public float Acceleration 	   = 0.1f;
 	public float Damping 		   = 0.15f;
 	public float BackAndSideDampen = 0.5f;
@@ -199,6 +201,8 @@ public class OVRPlayerController : OVRComponent
 	static float sDeltaRotationOld = 0.0f;
 	public virtual void UpdateMovement()
 	{
+		GameObject obj = GameObject.Find("ComunicacionUDP");
+		udpDatos = obj.GetComponent<UDPClient>();
 		// Do not apply input if we are showing a level selection display
 		if(HaltUpdateMovement == true)
 			return;
@@ -225,7 +229,8 @@ public class OVRPlayerController : OVRComponent
 		if (Input.GetKey(KeyCode.LeftArrow))  moveLeft 	  = true;
 		if (Input.GetKey(KeyCode.DownArrow))  moveBack 	  = true; 
 		if (Input.GetKey(KeyCode.RightArrow)) moveRight   = true; 
-			
+
+		if (udpDatos.camina_usuario) moveForward = true;
 		if ( (moveForward && moveLeft) || (moveForward && moveRight) ||
 			 (moveBack && moveLeft)    || (moveBack && moveRight) )
 			MoveScale = 0.70710678f;
