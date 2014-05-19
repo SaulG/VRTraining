@@ -6,14 +6,15 @@ Envio de mensajes de deteccion de orientacion y pasos
 import hypermedia.net.*;
 import SimpleOpenNI.*;
 
-SimpleOpenNI context;
+public SimpleOpenNI context;
 
 //ultimos valores de las coordenadas de rodilla derecha e izquierda
-PVector ultimoRodillaDerecha;
-PVector ultimoRodillaIzquierda;
+public PVector ultimoRodillaDerecha;
+public PVector ultimoRodillaIzquierda;
 
 //umbral para determinar movimiento aceptable entre coordenadas
-public static final int UMBRAL = 3;
+public static final int UMBRAL = 1;
+public static final float CONFIDENCIA = 0.85;
 
 // the remote IP address
 public static final String ip = "127.0.0.1";
@@ -21,9 +22,9 @@ public static final String ip = "127.0.0.1";
 // the destination port
 public static final int port = 1600;  
      
-UDP udp; 
-String camina_msj;
-String orientacion_msj;
+public UDP udp; 
+public String camina_msj;
+public String orientacion_msj;
 
 void setup(){
   udp = new UDP( this, 6000 );
@@ -63,9 +64,7 @@ void draw() {
     //dada una lista de usuarios detectados
     int[] listaUsuarios = context.getUsers();
     for(int i = 0; i < listaUsuarios.length; i++){
-       
       if(context.isTrackingSkeleton(listaUsuarios[i])){
- 
          orientacion_msj = orientacionTorso(listaUsuarios[i]);
          camina_msj = deteccionCamina(listaUsuarios[i]);
          udp.send(orientacion_msj+','+camina_msj,ip, port);
@@ -73,32 +72,30 @@ void draw() {
        
     }
    
-  }
+ }
   
   
 //obtiene la orientacion del torse
 String orientacionTorso(int usuarioId){
  PVector position = new PVector();
- String mensaje;
+ String mensaje = "0,0,0,0";
+ 
  context.getJointPositionSkeleton(usuarioId, SimpleOpenNI.SKEL_TORSO, position);
 
  PMatrix3D orientation = new PMatrix3D();
  float confidence = context.getJointOrientationSkeleton(usuarioId, SimpleOpenNI.SKEL_TORSO, orientation);
- if(confidence > 0.6){  
-   //println(confidence);
+ if(confidence > CONFIDENCIA){  
    float grados = degrees(atan2( sqrt( (orientation.m21 * orientation.m21) + (orientation.m22 * orientation.m22) ), (orientation.m20 * -1) )); 
     
    if(grados < 70.0){
-       mensaje = String.format("Grados: %.2f Orientacion: derecha", grados);
+       mensaje = String.format("0,0,1,%.2f", grados);
    }else if(grados > 110.0){
-      mensaje = String.format("Grados: %.2f Orientacion: izquierda", grados);
+      mensaje = String.format("1,0,0,%.2f", grados);
    }else{
-      mensaje = String.format("Grados: %.2f Orientacion: neutral", grados);
+      mensaje = String.format("0,1,0,%.2f", grados);
    }
-   return mensaje;
- }else{
-   return "";
  }
+ return mensaje;
 }
 
 //detecta si camina
@@ -106,7 +103,7 @@ String deteccionCamina(int usuarioId){
   //vectores para las rodillas
   PVector rodillaDerecha = new PVector();
   PVector rodillaIzquierda = new PVector();
-  String mensaje = "";
+  String mensaje = "0";
   float confidence_rD = 0;
   float confidence_rI = 0;
   
@@ -117,12 +114,8 @@ String deteccionCamina(int usuarioId){
   //obtener la posicion de las uniones de los esqueletos
   confidence_rD = context.getJointPositionSkeleton(usuarioId, SimpleOpenNI.SKEL_RIGHT_KNEE, rodillaDerecha);
   confidence_rI = context.getJointPositionSkeleton(usuarioId, SimpleOpenNI.SKEL_LEFT_KNEE, rodillaIzquierda);
-  if((confidence_rD > 0.6) || (confidence_rI > 0.6)){
-    //imprime el vector de las rodillas
-    //println("Rodilla derecha: "+rodillaDerecha);
-    //println("Rodilla izquierda: "+rodillaIzquierda);
-    
-    
+  if((confidence_rD > CONFIDENCIA) || (confidence_rI > CONFIDENCIA)){
+  
     //vectores de las rodillas en 2D
     PVector rodillaDerecha2D = new PVector();
     PVector rodillaIzquierda2D = new PVector();
@@ -137,49 +130,14 @@ String deteccionCamina(int usuarioId){
     //verifica que no sean nulos los ultimos valores obtenidos  
     if( (ultimoRodillaDerecha != null) && (ultimoRodillaIzquierda != null) ){
       
-       /*
-        Verifica que el ultimo valor x de la rodilla mas UMBRAL sea menor igual al valor actual de la rodilla derecha
-        o que el ultimo valor x de la rodilla menos el UMBRAL sea mayor igual al valor actual de la rodilla izquierda
-        
-        Ejemplo:
-        
-        Cuando hay movimiento en x 
-        
-        ultimo valor x = 516
-        actual valor x = 521
-        umbral = 3
-                            (519 <= 521) -> TRUE
-                            (513 >= 521) -> FALSE
-        
-         Cuando hay movimiento en x
-  
-         ultimo valor x = 516
-    `    actual valor x = 510
-         umbral = 3
-                            (519 <= 510) -> FALSE
-                            (513 >= 510) -> TRUE
-                 
-        Cuando no hay movimiento en x   
-        
-        ultimo valor x = 518
-        actual valor x = 518
-        umbral = 3                    
-        
-                            (521 <= 518) -> FALSE
-                            (515 >= 520) -> FALSE
-     
-      Lo mismo pasa con la coordenada y.            
-      */
-    
       if ((((ultimoRodillaDerecha.x + UMBRAL) <= rodillaDerecha2D.x) || 
           ( (ultimoRodillaDerecha.x - UMBRAL) >= rodillaDerecha2D.x)) && 
           (((ultimoRodillaDerecha.y + UMBRAL) <= rodillaDerecha2D.y) || 
           ( (ultimoRodillaDerecha.y - UMBRAL) >= rodillaDerecha2D.y))){
                     //imprime camina
-                    mensaje = "camina";
-              }
+                    mensaje = "1";
+        }
     }
-    
     //guarda los ultimos valores obtenidos de las rodillas
     ultimoRodillaDerecha = rodillaDerecha2D;
     ultimoRodillaIzquierda = rodillaIzquierda2D;
@@ -187,12 +145,11 @@ String deteccionCamina(int usuarioId){
     //dibuja una linea con la union de la rodilla y el pie en ambos lados
     context.drawLimb(usuarioId, SimpleOpenNI.SKEL_RIGHT_KNEE, SimpleOpenNI.SKEL_RIGHT_FOOT);
     context.drawLimb(usuarioId, SimpleOpenNI.SKEL_LEFT_KNEE, SimpleOpenNI.SKEL_LEFT_FOOT);
+    }
     return mensaje;
-  }else{
-    return "";
-  }
-
 }
+
+
 
 //***************************
 //* Eventos de SimpleOpenNI *
@@ -214,4 +171,5 @@ void onVisibleUser(SimpleOpenNI nuevoUsuarioContext, int usuarioId){
   //  Mucho spam en el log, es bueno para debugear si el usuario sigue ahi
   //  println("El usuario sigue ahi id: "+usuarioId);
 }
+
 

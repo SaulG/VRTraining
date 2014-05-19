@@ -75,7 +75,7 @@ public class OVRPlayerController : OVRComponent
 	protected Transform DirXform = null;
 	
 	// We can adjust these to influence speed and rotation of player controller
-	private float MoveScaleMultiplier     = 1.0f; 
+	private float MoveScaleMultiplier     = 3.0f; 
 	private float RotationScaleMultiplier = 1.0f; 
 	private bool  AllowMouseRotation      = true;
 	private bool  HaltUpdateMovement      = false;
@@ -203,6 +203,7 @@ public class OVRPlayerController : OVRComponent
 	{
 		GameObject obj = GameObject.Find("ComunicacionUDP");
 		udpDatos = obj.GetComponent<UDPClient>();
+
 		// Do not apply input if we are showing a level selection display
 		if(HaltUpdateMovement == true)
 			return;
@@ -266,9 +267,9 @@ public class OVRPlayerController : OVRComponent
 		float rotateInfluence = DeltaTime * RotationAmount * RotationScaleMultiplier;
 			
 		//reduce by half to avoid getting ill
-		if (Input.GetKey(KeyCode.Q)) 
+		if (Input.GetKey(KeyCode.Q) || (udpDatos.derecha_usuario)) 
 			YRotation -= rotateInfluence * 0.5f;  
-		if (Input.GetKey(KeyCode.E)) 
+		if (Input.GetKey(KeyCode.E) || (udpDatos.izquierda_usuario)) 
 			YRotation += rotateInfluence * 0.5f; 
 		
 		// * * * * * * * * * * *

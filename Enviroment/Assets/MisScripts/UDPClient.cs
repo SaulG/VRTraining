@@ -19,22 +19,40 @@ public class UDPClient : MonoBehaviour {
 	public static int port = 1600;
 	//ip address to listen
 	public static string ipAddress = "127.0.0.1";
-	//the current message received
-	private string currentMessage;
+
 	//the last message received
 	private string lastMessageReceived;
 
 	public Boolean camina_usuario;
 
+	public Boolean derecha_usuario;
+
+	public Boolean izquierda_usuario;
+	
 	//this function is infinity loop
 	void Update(){
-		if (lastMessageReceived == "camina") {
-			camina_usuario = true;
-			Debug.Log (lastMessageReceived);
-		} else {
-			camina_usuario = false;
-			Debug.Log (lastMessageReceived);
+		if (lastMessageReceived != null) {
+				string[] datosCSV = lastMessageReceived.Split(","[0]);
+				if (datosCSV [1] == "0" && (datosCSV [0] == "1" || datosCSV [2] == "1")) {
+						if (datosCSV [0] == "1") {
+								derecha_usuario = true;
+								izquierda_usuario = false;
+						}
+						if (datosCSV [2] == "1") {
+								izquierda_usuario = true;
+								derecha_usuario = false;
+						}
+				} else {
+						izquierda_usuario = false;
+						derecha_usuario = false;
+				}
+				if (datosCSV [4] == "1") {
+						camina_usuario = true;
+				} else {
+						camina_usuario = false;
+				}
 		}
+		Debug.Log(lastMessageReceived);
 	}
 
 	void Start(){
