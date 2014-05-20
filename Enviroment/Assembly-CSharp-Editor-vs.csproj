@@ -65,6 +65,7 @@
      <None Include="Assets\Tuscany\Models\Materials\Vertex color unlit 5.shader" />
      <None Include="Assets\Standard Assets (Mobile)\Shaders\Miscellaneous Shaders\Mobile Detail.shader" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
+     <None Include="Assets\VRGUI\Shaders\VRGUITransparentOverlayShader.shader" />
      <None Include="Assets\Tuscany\Models\Materials\Vertex color unlit 6.shader" />
      <None Include="Assets\Tuscany\Models\Materials\DoubleSided.shader" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />

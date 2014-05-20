@@ -1,9 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/OVR/Scripts/OVRPlayerController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/MisScripts/GUIGame.cs">
     <Files>
-      <File FileName="Assets/MisScripts/UDPClient.cs" Line="49" Column="20" />
-      <File FileName="Assets/MisScripts/UDPClient.cs" Line="49" Column="23" />
+      <File FileName="Assets/MisScripts/GUIGame.cs" Line="34" Column="3" />
+      <File FileName="Assets/MisScripts/UDPClient.cs" Line="55" Column="1" />
       <File FileName="Assets/OVR/Scripts/OVRGamepadController.cs" Line="1" Column="1" />
       <File FileName="Assets/OVR/Scripts/OVRPlayerController.cs" Line="78" Column="43" />
     </Files>

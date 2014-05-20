@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\MisScripts\GUIGame.cs" />
      <Compile Include="Assets\MisScripts\UDPClient.cs" />
      <Compile Include="Assets\OVR\OVRImageEffects\OVRImageEffectBase.cs" />
      <Compile Include="Assets\OVR\OVRImageEffects\OVRLensCorrection.cs" />
@@ -63,6 +64,7 @@
      <Compile Include="Assets\OVR\Scripts\OVRPresetManager.cs" />
      <Compile Include="Assets\OVR\Scripts\OVRUtils.cs" />
      <Compile Include="Assets\Tuscany\Models\Birds\BirdsBehaviour.cs" />
+     <Compile Include="Assets\VRGUI\Scripts\VRGUI.cs" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
      <None Include="Assets\Standard Assets (Mobile)\Shaders\Particle Shaders\Mobile Multiply Culled.shader" />
      <None Include="Assets\Plugins\donotdelete.txt" />
@@ -76,6 +78,7 @@
      <None Include="Assets\Tuscany\Models\Materials\Vertex color unlit 5.shader" />
      <None Include="Assets\Standard Assets (Mobile)\Shaders\Miscellaneous Shaders\Mobile Detail.shader" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
+     <None Include="Assets\VRGUI\Shaders\VRGUITransparentOverlayShader.shader" />
      <None Include="Assets\Tuscany\Models\Materials\Vertex color unlit 6.shader" />
      <None Include="Assets\Tuscany\Models\Materials\DoubleSided.shader" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
