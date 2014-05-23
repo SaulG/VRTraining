@@ -1,11 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/MisScripts/GUIGame.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/OVR/Scripts/OVRGamepadController.cs">
     <Files>
-      <File FileName="Assets/MisScripts/GUIGame.cs" Line="34" Column="3" />
-      <File FileName="Assets/MisScripts/UDPClient.cs" Line="55" Column="1" />
-      <File FileName="Assets/OVR/Scripts/OVRGamepadController.cs" Line="1" Column="1" />
-      <File FileName="Assets/OVR/Scripts/OVRPlayerController.cs" Line="78" Column="43" />
+      <File FileName="Assets/MisScripts/GUIGame.cs" Line="27" Column="2" />
+      <File FileName="Assets/MisScripts/UDPClient.cs" Line="27" Column="2" />
+      <File FileName="Assets/OVR/Scripts/OVRGamepadController.cs" Line="10" Column="66" />
+      <File FileName="Assets/OVR/Scripts/OVRPlayerController.cs" Line="205" Column="14" />
+      <File FileName="Assets/OVR/Scripts/OVRDevice.cs" Line="377" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -12,6 +12,7 @@ public SimpleOpenNI context;
 public PVector ultimoRodillaDerecha;
 public PVector ultimoRodillaIzquierda;
 
+
 //umbral para determinar movimiento aceptable entre coordenadas
 public static final int UMBRAL = 1;
 public static final float CONFIDENCIA = 0.85;
@@ -25,6 +26,7 @@ public static final int port = 1600;
 public UDP udp; 
 public String camina_msj;
 public String orientacion_msj;
+public String mano_msj;
 
 void setup(){
   udp = new UDP( this, 6000 );
@@ -67,7 +69,8 @@ void draw() {
       if(context.isTrackingSkeleton(listaUsuarios[i])){
          orientacion_msj = orientacionTorso(listaUsuarios[i]);
          camina_msj = deteccionCamina(listaUsuarios[i]);
-         udp.send(orientacion_msj+','+camina_msj,ip, port);
+         mano_msj = deteccionMano(listaUsuarios[i]);
+         udp.send(orientacion_msj+','+camina_msj+','+mano_msj,ip, port);
       }        
        
     }
@@ -97,6 +100,31 @@ String orientacionTorso(int usuarioId){
  }
  return mensaje;
 }
+
+String deteccionMano(int usuarioId){
+  PVector cuello = new PVector();
+  PVector manoDerecha = new PVector();
+  String mensaje = "0";
+  float confidence_cuello = 0;
+  float confidence_mano = 0;
+  confidence_cuello = context.getJointPositionSkeleton(usuarioId, SimpleOpenNI.SKEL_NECK, cuello);
+  confidence_mano = context.getJointPositionSkeleton(usuarioId, SimpleOpenNI.SKEL_LEFT_HAND, manoDerecha);
+  if((confidence_cuello > CONFIDENCIA) && (confidence_mano > CONFIDENCIA)){
+     //vectores de las rodillas en 2D
+    PVector cuello2D = new PVector();
+    PVector manoDerecha2D = new PVector();
+ 
+    //obtiene la proyeccion en 2D de las uniones
+    context.convertRealWorldToProjective(manoDerecha, manoDerecha2D);
+    context.convertRealWorldToProjective(cuello, cuello2D);
+      if(cuello2D.y >= manoDerecha2D.y){
+         //imprime camina
+         mensaje = "1";
+      }
+  }
+  return mensaje;
+}
+
 
 //detecta si camina
 String deteccionCamina(int usuarioId){
@@ -143,8 +171,8 @@ String deteccionCamina(int usuarioId){
     ultimoRodillaIzquierda = rodillaIzquierda2D;
     
     //dibuja una linea con la union de la rodilla y el pie en ambos lados
-    context.drawLimb(usuarioId, SimpleOpenNI.SKEL_RIGHT_KNEE, SimpleOpenNI.SKEL_RIGHT_FOOT);
-    context.drawLimb(usuarioId, SimpleOpenNI.SKEL_LEFT_KNEE, SimpleOpenNI.SKEL_LEFT_FOOT);
+    //context.drawLimb(usuarioId, SimpleOpenNI.SKEL_RIGHT_KNEE, SimpleOpenNI.SKEL_RIGHT_FOOT);
+    //context.drawLimb(usuarioId, SimpleOpenNI.SKEL_LEFT_KNEE, SimpleOpenNI.SKEL_LEFT_FOOT);
     }
     return mensaje;
 }

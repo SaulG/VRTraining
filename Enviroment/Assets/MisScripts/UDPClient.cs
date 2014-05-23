@@ -28,7 +28,12 @@ public class UDPClient : MonoBehaviour {
 	public Boolean derecha_usuario;
 
 	public Boolean izquierda_usuario;
-	
+
+	private GameObject guigameObj;
+
+	private GUIGame guigameScript;
+
+
 	//this function is infinity loop
 	void Update(){
 		if (lastMessageReceived != null) {
@@ -51,11 +56,16 @@ public class UDPClient : MonoBehaviour {
 				} else {
 						camina_usuario = false;
 				}
+				if (datosCSV[5] == "1"){
+				    guigameScript.changeInstructionsState();
+			}
 		}
 		Debug.Log(lastMessageReceived);
 	}
 
 	void Start(){
+		guigameObj = GameObject.Find("OVRCameraController");
+		guigameScript = guigameObj.GetComponent<GUIGame>();
 		init();
 	}
 	//Initialize the thread to run in background
