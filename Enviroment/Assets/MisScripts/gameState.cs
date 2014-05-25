@@ -9,12 +9,8 @@ public class gameState : MonoBehaviour {
 	private static gameState instance;
 	private Usuario usuarioDatos;
 	private string nivelActivo;
+	private float tiempoInicial;
 
-
-	
-	
-	
-	
 	// ---------------------------------------------------------------------------------------------------
 	// gamestate()
 	// --------------------------------------------------------------------------------------------------- 
@@ -86,11 +82,18 @@ public class gameState : MonoBehaviour {
 	}
 
 	public bool obtenerUsuarioEsDetectado(){
-		return true;//usuarioDatos.obtenerUsuarioDetectado();
+		return usuarioDatos.obtenerUsuarioDetectado();
 	}
 
 	public bool obtenerLevantaMano(){
-		return true;//usuarioDatos.obtenerLevantaMano();
+		return usuarioDatos.obtenerLevantaMano();
 	}
 
+	public void asignaTiempoInicial(){
+		tiempoInicial = Time.time;
+	}
+
+	public float obtenerTiempoInicial(){
+		return tiempoInicial;
+	}
 }

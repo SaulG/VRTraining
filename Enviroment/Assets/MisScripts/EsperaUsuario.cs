@@ -26,6 +26,7 @@ public class EsperaUsuario : VRGUI {
 	public void cambiaEstado(){
 		print("Comienzando estado de cuarto");
 		gameState.Instance.asignaNivel("Cuarto");
+		gameState.Instance.asignaTiempoInicial();
         Application.LoadLevel("cuarto");
 	}
 }
