@@ -85,6 +85,11 @@ public class OVRPlayerController : OVRComponent
 	
 	// * * * * * * * * * * * * *
 	
+	private static string derecha = "derecha";
+	private static string izquierda = "izquierda";
+	
+
+	
 	// Awake
 	new public virtual void Awake()
 	{
@@ -199,11 +204,7 @@ public class OVRPlayerController : OVRComponent
 	// COnsolidate all movement code here
 	//
 	static float sDeltaRotationOld = 0.0f;
-	public virtual void UpdateMovement()
-	{
-		GameObject obj = GameObject.Find("ComunicacionUDP");
-		udpDatos = obj.GetComponent<UDPClient>();
-
+	public virtual void UpdateMovement(){
 		// Do not apply input if we are showing a level selection display
 		if(HaltUpdateMovement == true)
 			return;
@@ -231,7 +232,7 @@ public class OVRPlayerController : OVRComponent
 		if (Input.GetKey(KeyCode.DownArrow))  moveBack 	  = true; 
 		if (Input.GetKey(KeyCode.RightArrow)) moveRight   = true; 
 
-		if (udpDatos.camina_usuario) moveForward = true;
+		if (gameState.Instance.obtenerCamina()) moveForward = true;
 		if ( (moveForward && moveLeft) || (moveForward && moveRight) ||
 			 (moveBack && moveLeft)    || (moveBack && moveRight) )
 			MoveScale = 0.70710678f;
@@ -267,9 +268,9 @@ public class OVRPlayerController : OVRComponent
 		float rotateInfluence = DeltaTime * RotationAmount * RotationScaleMultiplier;
 			
 		//reduce by half to avoid getting ill
-		if (Input.GetKey(KeyCode.Q) || (udpDatos.derecha_usuario)) 
+		if (Input.GetKey(KeyCode.Q) || (gameState.Instance.obtenerOrientacion() == derecha)) 
 			YRotation -= rotateInfluence * 0.5f;  
-		if (Input.GetKey(KeyCode.E) || (udpDatos.izquierda_usuario)) 
+		if (Input.GetKey(KeyCode.E) || (gameState.Instance.obtenerOrientacion() == izquierda)) 
 			YRotation += rotateInfluence * 0.5f; 
 		
 		// * * * * * * * * * * *
@@ -432,6 +433,45 @@ public class OVRPlayerController : OVRComponent
 	{
 		HaltUpdateMovement = haltUpdateMovement;
 	}
-
+/*
+	public void OnTriggerEnter(Collider colision){
+		print("COLISION");
+		GameObject colisionObj = new GameObject();	
+		switch(colision.gameObject.name){
+			case "Terrain":
+				print("Terreno");
+				insideArea = false;
+				break;
+			case "RedZone":
+				print("Rojo");
+				if(!insideArea){
+					insideArea = true;
+					colisionObj.gameObject.SendMessage("verificaColor", "rojo");
+				}
+			break;
+			case "YellowZone":
+				print("Amarillo");
+				if(!insideArea){
+					insideArea = true;
+					colisionObj.gameObject.SendMessage("verificaColor", "amarillo");
+				}
+			break;
+			case "GreenZone":
+				print("Verde");
+			 	if(!insideArea){
+					insideArea = true;
+					colisionObj.gameObject.SendMessage("verificaColor", "verde");
+				}
+			break;
+			case "BlueZone":
+				print("azul");
+				if(!insideArea){
+					insideArea = true;
+					colisionObj.gameObject.SendMessage("verificaColor", "azul");
+				}
+			break;
+		}
+	}
+*/
 }
 

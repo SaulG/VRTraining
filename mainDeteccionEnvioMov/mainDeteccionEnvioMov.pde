@@ -27,6 +27,7 @@ public UDP udp;
 public String camina_msj;
 public String orientacion_msj;
 public String mano_msj;
+public String usuarioDetectado_msj;
 
 void setup(){
   udp = new UDP( this, 6000 );
@@ -70,14 +71,14 @@ void draw() {
          orientacion_msj = orientacionTorso(listaUsuarios[i]);
          camina_msj = deteccionCamina(listaUsuarios[i]);
          mano_msj = deteccionMano(listaUsuarios[i]);
-         udp.send(orientacion_msj+','+camina_msj+','+mano_msj,ip, port);
+         udp.send(usuarioDetectado_msj+','+orientacion_msj+','+camina_msj+','+mano_msj,ip, port);
       }        
        
     }
    
  }
   
-  
+
 //obtiene la orientacion del torse
 String orientacionTorso(int usuarioId){
  PVector position = new PVector();
@@ -193,11 +194,13 @@ void onNewUser(SimpleOpenNI nuevoUsuarioContext, int usuarioId){
 
 void onLostUser(SimpleOpenNI nuevoUsuarioContext, int usuarioId){
   println("Se perdio el seguimiento del usuario con id: "+usuarioId);
+  usuarioDetectado_msj = "0";
 }
 
 void onVisibleUser(SimpleOpenNI nuevoUsuarioContext, int usuarioId){
   //  Mucho spam en el log, es bueno para debugear si el usuario sigue ahi
   //  println("El usuario sigue ahi id: "+usuarioId);
+  usuarioDetectado_msj = "1";
 }
 
 

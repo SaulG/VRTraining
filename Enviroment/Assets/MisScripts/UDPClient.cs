@@ -10,103 +10,110 @@ using System.Net;
 
 
 public class UDPClient : MonoBehaviour {
-	//thread object
-	private Thread receiverThread;
-	//udpclient object
-	private UdpClient client;
-	
-	//port to listen
-	public static int port = 1600;
-	//ip address to listen
-	public static string ipAddress = "127.0.0.1";
 
-	//the last message received
-	private string lastMessageReceived;
+	private static int puerto = 1600;
+	private static string direccionIp = "127.0.0.1";
 
-	public Boolean camina_usuario;
+	private Thread hiloUdp;
+	private UdpClient clienteUdp;
+	private string mensaje;
 
-	public Boolean derecha_usuario;
+	private string orientacion;
+	private bool camina;
+	private bool levantaMano;
+	private bool usuarioDetectado;
 
-	public Boolean izquierda_usuario;
+	public UDPClient(){
 
-	private GameObject guigameObj;
-
-	private GUIGame guigameScript;
-
-
-	//this function is infinity loop
-	void Update(){
-		if (lastMessageReceived != null) {
-				string[] datosCSV = lastMessageReceived.Split(","[0]);
-				if (datosCSV [1] == "0" && (datosCSV [0] == "1" || datosCSV [2] == "1")) {
-						if (datosCSV [0] == "1") {
-								derecha_usuario = true;
-								izquierda_usuario = false;
-						}
-						if (datosCSV [2] == "1") {
-								izquierda_usuario = true;
-								derecha_usuario = false;
-						}
-				} else {
-						izquierda_usuario = false;
-						derecha_usuario = false;
-				}
-				if (datosCSV [4] == "1") {
-						camina_usuario = true;
-				} else {
-						camina_usuario = false;
-				}
-				if (datosCSV[5] == "1"){
-				    guigameScript.changeInstructionsState();
-			}
-		}
-		Debug.Log(lastMessageReceived);
-	}
-
-	void Start(){
-		guigameObj = GameObject.Find("OVRCameraController");
-		guigameScript = guigameObj.GetComponent<GUIGame>();
+		this.orientacion = "neutral";
+		this.camina = false;
+		this.levantaMano = false;
+		this.mensaje = "";
 		init();
 	}
+
+
+	public void actualizaDatosUsuario(){
+
+		if (mensaje != null) {
+
+			string[] datosCSV = mensaje.Split(","[0]);
+
+			asignaUsuarioDetectado((datosCSV[0] == "1")? true : false);
+			
+			if (datosCSV [2] == "0" && (datosCSV [1] == "1" || datosCSV [3] == "1")) {
+
+				if (datosCSV [1] == "1") {
+					asignaOrientacion("derecha");
+				}
+
+				if (datosCSV [3] == "1") {
+					asignaOrientacion("izquierda");
+				}
+			} else {
+				asignaOrientacion("neutral");
+			}
+
+
+			if (datosCSV [5] == "1") {
+				asignaCamina(true);
+			} else {
+				asignaCamina(false);
+			}
+
+
+			if (datosCSV[6] == "1"){
+				asignaLevantaMano(true);
+			}else{
+				asignaLevantaMano(false);
+			}
+
+
+		}
+
+		Debug.Log(mensaje);
+	}
+
 	//Initialize the thread to run in background
-	void init(){
-		//debug
-		print("Running");
+	public void init(){
 		//initialize the thread and set the function updateReceivedData
 		//As a task for the thread
-		receiverThread = new Thread(new ThreadStart(updateReceivedData));
+		hiloUdp = new Thread(new ThreadStart(updateReceivedData));
 		//Enable background running
-		receiverThread.IsBackground = true;
+		hiloUdp.IsBackground = true;
 		//Start the thread
-		receiverThread.Start();
+		hiloUdp.Start();
 		//debug
-		print ("Already start thread");
+		print ("Comenzo el hilo");
 	}
 	
 	//Stop the thread
-	void stopListenning(){
-		if (receiverThread != null){
-			receiverThread.Abort();
+	public void stopListenning(){
+		if (hiloUdp != null){
+			hiloUdp.Abort();
+			hiloUdp = null;
 		}
 	}
 	
 	//Run the UDP client
 	private void updateReceivedData(){
 		//Debug
-		print("Starting updating data");
+		print("Comenzando a actualizar la informacion");
 		//Initialize UDPClient with the port parsed
-		client = new UdpClient(port);
+		clienteUdp = new UdpClient(puerto);
 		//Just declaring the byte array
-		byte [] data;
+		byte [] datos;
 		//infinite loop
 		while(true){
 			try {
 				//initilizing the end point object which contains the ipaddress and port to listen
-				IPEndPoint ipEndPointObj = new IPEndPoint(IPAddress.Parse(ipAddress), port);
+				IPEndPoint ipEndPointObj = new IPEndPoint(IPAddress.Parse(direccionIp), puerto);
 				//Received the data from the ipendpoint object
-				data = client.Receive(ref(ipEndPointObj));
+				datos = clienteUdp.Receive(ref(ipEndPointObj));
 				//Getting the data from the bytes array
-				lastMessageReceived =  System.Text.Encoding.ASCII.GetString(data, 0, data.Length);
+				mensaje = System.Text.Encoding.ASCII.GetString(datos, 0, datos.Length);
+				
+				actualizaDatosUsuario();
 				//To handle errors
 			} catch (Exception e){
 				//debug
@@ -114,6 +121,37 @@ public class UDPClient : MonoBehaviour {
 			}
 		}
 	}
-	
-	
+
+
+	private void asignaCamina(bool camina){
+		this.camina = camina;
+	}
+
+	private void asignaOrientacion(string orientacion){
+		this.orientacion = orientacion;
+	}
+
+	private void asignaLevantaMano(bool levantaMano){
+		this.levantaMano = levantaMano;
+	}
+
+	public void asignaUsuarioDetectado(bool usuarioDetectado){
+		this.usuarioDetectado = usuarioDetectado;
+	}
+
+	public bool obtenerLevantaMano(){
+		return levantaMano;
+	}
+
+	public bool obtenerUsuarioDetectado(){
+		return usuarioDetectado;
+	}
+
+	public bool obtenerCamina(){
+		return this.camina;
+	}
+	public string obtenerOrientacion(){
+		return orientacion;
+	}
+
 }
