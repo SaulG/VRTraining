@@ -35,7 +35,7 @@ public class Juego : VRGUI {
 	
 	public void Start(){
 		mensajeInstruccionesTitulo = "Instrucciones:"; 
-		mensajeInstruccionesCuerpo = "Visitar cada una de las areas correspondientes según su color y orden en el que son presentados:";
+		mensajeInstruccionesCuerpo = "Visitar cada una de las áreas correspondientes según su color y orden en el que son presentados:";
 		colores = new List<string>{"rojo", "amarillo", "verde", "azul"};
 		coloresVisitados = 0;
 		ultimoCambioEstado = ENFRIAMIENTO_MENU;

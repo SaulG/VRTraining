@@ -28,8 +28,12 @@ public class Puntuajes : VRGUI {
 		GUI.Label (new Rect (30, 50, 340, 100), mensajeLevantaMano, estiloMensajeLevantaMano);
 
 		if(gameState.Instance.obtenerLevantaMano()){
-			gameState.Instance.asignaNivel("Comienza");
-            Application.LoadLevel("comienza");
+			cambiarEstado();
 		}
+	}
+
+	private void cambiarEstado(){
+		gameState.Instance.asignaNivel("Comienza");
+        Application.LoadLevel("comienza");
 	}
 }

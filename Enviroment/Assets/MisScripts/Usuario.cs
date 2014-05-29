@@ -24,7 +24,6 @@ public class Usuario : MonoBehaviour {
 	private bool usuarioDetectado;
 
 	public Usuario(){
-
 		this.orientacion = "neutral";
 		this.camina = false;
 		this.levantaMano = false;
@@ -33,7 +32,7 @@ public class Usuario : MonoBehaviour {
 	}
 
 
-	public void actualizaDatosUsuario(){
+	private void actualizaDatosUsuario(){
 
 		if (obtenerMensaje() != null) {
 
@@ -75,7 +74,7 @@ public class Usuario : MonoBehaviour {
 	}
 
 	//Initialize the thread to run in background
-	public void init(){
+	private void init(){
 		//initialize the thread and set the function updateReceivedData
 		//As a task for the thread
 		hiloUdp = new Thread(new ThreadStart(updateReceivedData));

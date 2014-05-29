@@ -96,4 +96,15 @@ public class gameState : MonoBehaviour {
 	public float obtenerTiempoInicial(){
 		return tiempoInicial;
 	}
+	/*
+	var stopwatch:System.Diagnostics.Stopwatch  = new System.Diagnostics.Stopwatch();
+	stopwatch.Start();
+	 
+	// your function here..
+	 
+	stopwatch.Stop();
+	Debug.Log("Timer: " + stopwatch.Elapsed);
+	//Debug.Log("Timer: " + stopwatch.ElapsedMilliseconds); // this one gives you the time in ms
+	stopwatch.Reset();
+	*/
 }

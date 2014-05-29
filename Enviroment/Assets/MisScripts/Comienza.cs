@@ -8,11 +8,11 @@ public class Comienza : MonoBehaviour {
 	{
 		if (GUI.Button (new Rect (30, 30, 150, 30), "Comienza Juego"))
 		{
-			cambiaEstado();
+			cambiarEstado();
 		}
 	}
 	
-	private void cambiaEstado(){
+	private void cambiarEstado(){
 		print("Esperar deteccion usuario");
 		DontDestroyOnLoad(gameState.Instance);
 		gameState.Instance.esperarDeteccionUsuario();       
