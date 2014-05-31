@@ -159,10 +159,7 @@ String deteccionCamina(int usuarioId){
     //verifica que no sean nulos los ultimos valores obtenidos  
     if( (ultimoRodillaDerecha != null) && (ultimoRodillaIzquierda != null) ){
       
-      if ((((ultimoRodillaDerecha.x + UMBRAL) <= rodillaDerecha2D.x) || 
-          ( (ultimoRodillaDerecha.x - UMBRAL) >= rodillaDerecha2D.x)) && 
-          (((ultimoRodillaDerecha.y + UMBRAL) <= rodillaDerecha2D.y) || 
-          ( (ultimoRodillaDerecha.y - UMBRAL) >= rodillaDerecha2D.y))){
+      if (((rodillaDerecha2D.y + UMBRAL) < rodillaIzquierda2D.y) || ((rodillaIzquierda2D.y + UMBRAL) < rodillaDerecha2D.y)){
                     //imprime camina
                     mensaje = "1";
         }

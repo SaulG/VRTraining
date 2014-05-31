@@ -7,7 +7,7 @@ PVector ultimoRodillaDerecha;
 PVector ultimoRodillaIzquierda;
 
 //umbral para determinar movimiento aceptable entre coordenadas
-public static final int UMBRAL = 3;
+public static final int UMBRAL = 28;
 
 void setup(){
   //dimensiones de la ventana a crearse
@@ -129,11 +129,10 @@ void dibujaEsqueleto(int usuarioId){
    
     Lo mismo pasa con la coordenada y.            
     */
+    
+
   
-    if ((((ultimoRodillaDerecha.x + UMBRAL) <= rodillaDerecha2D.x) || 
-        ( (ultimoRodillaDerecha.x - UMBRAL) >= rodillaDerecha2D.x)) && 
-        (((ultimoRodillaDerecha.y + UMBRAL) <= rodillaDerecha2D.y) || 
-        ( (ultimoRodillaDerecha.y - UMBRAL) >= rodillaDerecha2D.y))){
+    if (((rodillaDerecha2D.y + UMBRAL) < rodillaIzquierda2D.y) || ((rodillaIzquierda2D.y + UMBRAL) < rodillaDerecha2D.y)){
                   //imprime camina
                   //println("************************CAMINA*****************************");
                   text("SE DETECTO PASO", 10, 150);
