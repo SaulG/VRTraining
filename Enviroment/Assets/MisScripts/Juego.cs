@@ -13,6 +13,8 @@ public class Juego : VRGUI {
 
 	private List<string> colores;
 	private int coloresVisitados;
+	private int referenciaHeight;
+	private int referenciaWidth;
 
 	private Vector3 posicionInicial;
 
@@ -28,6 +30,9 @@ public class Juego : VRGUI {
 	public GUIStyle azulEstilo;
 	public GUIStyle verdeEstilo;
 	public GUIStyle coloresVisitadosEstilo;
+	public GUIStyle cajaEstilo;
+	public Texture2D texturaCaja;
+
 	
 	public string mensajeInstruccionesTitulo;
 	public string mensajeInstruccionesCuerpo;
@@ -44,7 +49,18 @@ public class Juego : VRGUI {
 		colores = randomizeList ();
 		muestraInstrucciones = true;
 		dentroArea = false;
-
+		cajaEstilo =  new GUIStyle();
+		texturaCaja = new Texture2D(128, 128);
+		for (int y = 0; y < texturaCaja.height; ++y)
+        {
+            for (int x = 0; x < texturaCaja.width; ++x)
+            {
+                Color color = new Color(0, 0, 0);
+                texturaCaja.SetPixel(x, y, color);
+            }
+        }  
+		texturaCaja.Apply();
+		cajaEstilo.normal.background = texturaCaja;
 	}
 
 	public void Update(){
@@ -89,18 +105,21 @@ public class Juego : VRGUI {
 	}
 
 	public override void OnVRGUI () {
+		referenciaHeight = Screen.height/ 3 ;
+		referenciaWidth = Screen.width/8;
+
 		if (coloresVisitados != colores.Count){
 			if (muestraInstrucciones) {
-				GUI.Box (new Rect (0, 0, 350, 100), "");
-				GUI.Label (new Rect (30, 0, 160, 20), mensajeInstruccionesTitulo, tituloEstilo);
-				GUI.Label (new Rect (20, 30, 340, 100), mensajeInstruccionesCuerpo, cuerpoEstilo);
-				GUI.Label (new Rect (20, 60, 350, 50), "1.-" + colores [0], obtenerEstilo (colores [0]));
-				GUI.Label (new Rect (20, 80, 350, 50), "2.-" + colores [1], obtenerEstilo (colores [1]));
-				GUI.Label (new Rect (100, 60, 350, 50), "3.-" + colores [2], obtenerEstilo (colores [2]));
-				GUI.Label (new Rect (100, 80, 350, 50), "4.-" + colores [3], obtenerEstilo (colores [3]));
+				GUI.Box (new Rect (referenciaWidth, referenciaHeight,350, 100), "", cajaEstilo);
+				GUI.Label (new Rect (referenciaWidth+30, referenciaHeight+0, 160, 20), mensajeInstruccionesTitulo, tituloEstilo);
+				GUI.Label (new Rect (referenciaWidth+20, referenciaHeight+30, 340, 100), mensajeInstruccionesCuerpo, cuerpoEstilo);
+				GUI.Label (new Rect (referenciaWidth+20, referenciaHeight+60, 350, 50), "1.-" + colores [0], obtenerEstilo (colores [0]));
+				GUI.Label (new Rect (referenciaWidth+20, referenciaHeight+80, 350, 50), "2.-" + colores [1], obtenerEstilo (colores [1]));
+				GUI.Label (new Rect (referenciaWidth+100, referenciaHeight+60, 350, 50), "3.-" + colores [2], obtenerEstilo (colores [2]));
+				GUI.Label (new Rect (referenciaWidth+100, referenciaHeight+80, 350, 50), "4.-" + colores [3], obtenerEstilo (colores [3]));
 			} else {
 				mensajeColoresVisitados = obtenMensajeColoresVisitados();
-				GUI.Label(new Rect (20, 30, 340, 100), mensajeColoresVisitados, coloresVisitadosEstilo);
+				GUI.Label(new Rect (20, 5, 340, 100), mensajeColoresVisitados, coloresVisitadosEstilo);
 			}
 		}else{
 			gameState.Instance.asignaNivel("Puntuajes");

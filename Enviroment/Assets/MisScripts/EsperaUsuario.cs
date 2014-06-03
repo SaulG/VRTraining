@@ -10,13 +10,13 @@ public class EsperaUsuario : VRGUI {
 
 	public void Start(){
 		mensajeDeteccionUsuario = "Detectando usuario...";
-		mensajeLevantaMano = "Levanta tu mano para comenzar";
+		mensajeLevantaMano = "Levanta tu mano derecha para comenzar";
 	}
 
 	public override void OnVRGUI () {
-		if ( !(gameState.Instance.obtenerUsuarioEsDetectado()) ) {
+		if ( (gameState.Instance.obtenerUsuarioEsDetectado()) ) {
 			GUI.Label (new Rect (180, 150, (Screen.width/2), (Screen.height/2)), mensajeDeteccionUsuario, estiloMensajes);
-		}else if (!(gameState.Instance.obtenerLevantaMano()) ) {
+		}else if ((gameState.Instance.obtenerLevantaMano()) ) {
 			GUI.Label (new Rect (90, 150, (Screen.width/2), (Screen.height/2)), mensajeLevantaMano, estiloMensajes);
 		} else {
 			cambiaEstado();		
