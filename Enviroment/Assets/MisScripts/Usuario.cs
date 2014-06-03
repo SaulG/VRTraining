@@ -2,10 +2,12 @@
 using System.Collections;
 
 using System;
+using System.IO;
 using System.Text;
 using System.Net.Sockets;
 using System.Threading;
 using System.Net;
+using System.DateTime;
 
 
 
@@ -13,15 +15,20 @@ public class Usuario : MonoBehaviour {
 
 	private static int puerto = 1600;
 	private static string direccionIp = "127.0.0.1";
-
+	private static string formato = "MMM dd yyyy HH:mm:ss:SSS";
 	private Thread hiloUdp;
 	private UdpClient clienteUdp;
 	private string mensaje;
-
+	private string nombre_archivo;
 	private string orientacion;
 	private bool camina;
 	private bool levantaMano;
 	private bool usuarioDetectado;
+
+	private DateTime obtieneDatos;
+	private DateTime enviaDatos;
+	private DateTime recibeDatosTiempo;
+	private DateTime actualizaInformacion;
 
 	public Usuario(){
 		this.orientacion = "neutral";
@@ -66,8 +73,9 @@ public class Usuario : MonoBehaviour {
 			}else{
 				asignaLevantaMano(false);
 			}
-
-
+			
+			obtieneDatos = DateTime.ParseExact(datosCSV[7], formato, CultureInfo.InvariantCulture);
+			enviaDatos = DateTime.ParseExact(datosCSV[8], formato, CultureInfo.InvariantCulture);
 		}
 
 		Debug.Log(mensaje);
@@ -84,6 +92,8 @@ public class Usuario : MonoBehaviour {
 		hiloUdp.Start();
 		//debug
 		print ("Comenzo el hilo");
+		DateTime hoy = new DateTime.Now;
+		nombre_archivo = "latencia-"+hoy.ToString("dd-MMM-HH-mm-ss")+".txt";
 	}
 	
 	//Stop the thread
@@ -121,6 +131,11 @@ public class Usuario : MonoBehaviour {
 		}
 	}
 
+	public void seActualizaInformacion(){
+		StreamWriter sw = new StreamWriter(nombre_archivo);
+		sw.WriteLine("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato));
+		sw.close();
+	}
 
 	private void asignaCamina(bool camina){
 		this.camina = camina;
@@ -160,7 +175,4 @@ public class Usuario : MonoBehaviour {
 	public string obtenerMensaje(){
 		return mensaje;
 	}
-
-
-
 }

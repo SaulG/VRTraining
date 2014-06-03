@@ -5,6 +5,9 @@ Envio de mensajes de deteccion de orientacion y pasos
 
 import hypermedia.net.*;
 import SimpleOpenNI.*;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.util.Date;
 
 public SimpleOpenNI context;
 
@@ -12,6 +15,8 @@ public SimpleOpenNI context;
 public PVector ultimoRodillaDerecha;
 public PVector ultimoRodillaIzquierda;
 
+public Date tiempo;
+public SimpleDateFormat formaFecha;
 
 //umbral para determinar movimiento aceptable entre coordenadas
 public static final int UMBRAL = 1;
@@ -28,6 +33,8 @@ public String camina_msj;
 public String orientacion_msj;
 public String mano_msj;
 public String usuarioDetectado_msj;
+public String obtieneDatos;
+public String enviaDatos;
 
 void setup(){
   udp = new UDP( this, 6000 );
@@ -53,13 +60,16 @@ void setup(){
   //habilita la generacion de las uniones del esqueleto
   context.enableUser();
   
+  formatoFecha = new SimpleDateFormat("MMM dd yyyy HH:mm:ss:SSS");
+  
 }
 
 
 void draw() { 
     //actualiza la informacion de la camara del kinect
     context.update();
-   
+    tiempo = new Date();
+    obtieneDatos = tiempo.toString();
     //guarda la imagen del ususario en una imagen
     image(context.userImage(), 0, 0);
    
@@ -71,7 +81,9 @@ void draw() {
          orientacion_msj = orientacionTorso(listaUsuarios[i]);
          camina_msj = deteccionCamina(listaUsuarios[i]);
          mano_msj = deteccionMano(listaUsuarios[i]);
-         udp.send(usuarioDetectado_msj+','+orientacion_msj+','+camina_msj+','+mano_msj,ip, port);
+         tiempo = new Date();
+         enviaDatos = tiempo.toString();
+         udp.send(usuarioDetectado_msj+','+orientacion_msj+','+camina_msj+','+mano_msj+','+formatoFecha.format(obtieneDatos)+','+formatoFecha.format(enviaDatos),ip, port);
       }        
        
     }
