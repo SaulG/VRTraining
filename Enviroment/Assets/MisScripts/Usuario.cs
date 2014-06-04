@@ -7,7 +7,6 @@ using System.Text;
 using System.Net.Sockets;
 using System.Threading;
 using System.Net;
-using System.DateTime;
 
 
 
@@ -74,8 +73,8 @@ public class Usuario : MonoBehaviour {
 				asignaLevantaMano(false);
 			}
 			
-			obtieneDatos = DateTime.ParseExact(datosCSV[7], formato, CultureInfo.InvariantCulture);
-			enviaDatos = DateTime.ParseExact(datosCSV[8], formato, CultureInfo.InvariantCulture);
+			obtieneDatos = DateTime.ParseExact(datosCSV[7], formato, null);
+			enviaDatos = DateTime.ParseExact(datosCSV[8], formato, null);
 		}
 
 		Debug.Log(mensaje);
@@ -92,7 +91,7 @@ public class Usuario : MonoBehaviour {
 		hiloUdp.Start();
 		//debug
 		print ("Comenzo el hilo");
-		DateTime hoy = new DateTime.Now;
+		DateTime hoy = new DateTime();
 		nombre_archivo = "latencia-"+hoy.ToString("dd-MMM-HH-mm-ss")+".txt";
 	}
 	
@@ -134,7 +133,7 @@ public class Usuario : MonoBehaviour {
 	public void seActualizaInformacion(){
 		StreamWriter sw = new StreamWriter(nombre_archivo);
 		sw.WriteLine("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato));
-		sw.close();
+		sw.Close();
 	}
 
 	private void asignaCamina(bool camina){
