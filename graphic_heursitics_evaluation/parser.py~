@@ -1,0 +1,8 @@
+from datetime import datetime
+from sys import argv
+
+
+def parseaTiempos():
+
+
+def main():

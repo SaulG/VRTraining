@@ -59,8 +59,7 @@ void setup(){
   
   //habilita la generacion de las uniones del esqueleto
   context.enableUser();
-  
-  formatoFecha = new SimpleDateFormat("MMM dd yyyy HH:mm:ss:SSS");
+  formatoFecha = new SimpleDateFormat("MM dd yyyy HH:mm:ss.fff");
   
 }
 
