@@ -37,6 +37,10 @@ public String obtieneDatos;
 public String enviaDatos;
 
 void setup(){
+  camina_msj = "0";
+  orientacion_msj = "0,1,0";
+  mano_msj = "0";
+  usuarioDetectado_msj = "0";
   udp = new UDP( this, 6000 );
   udp.log( true );     // <-- printout the connection activity
   udp.listen( true );
@@ -103,11 +107,11 @@ String orientacionTorso(int usuarioId){
    float grados = degrees(atan2( sqrt( (orientation.m21 * orientation.m21) + (orientation.m22 * orientation.m22) ), (orientation.m20 * -1) )); 
     
    if(grados < 70.0){
-       mensaje = String.format("0,0,1,%.2f", grados);
+       mensaje = "0,0,1";
    }else if(grados > 110.0){
-      mensaje = String.format("1,0,0,%.2f", grados);
+      mensaje = "1,0,0";
    }else{
-      mensaje = String.format("0,1,0,%.2f", grados);
+      mensaje = "0,1,0";
    }
  }
  return mensaje;

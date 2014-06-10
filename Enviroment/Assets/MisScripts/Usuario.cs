@@ -29,6 +29,8 @@ public class Usuario : MonoBehaviour {
 	private DateTime recibeDatosTiempo;
 	private DateTime actualizaInformacion;
 
+	private StreamWriter sw;
+
 	public Usuario(){
 		this.orientacion = "neutral";
 		this.camina = false;
@@ -39,7 +41,10 @@ public class Usuario : MonoBehaviour {
 
 
 	private void actualizaDatosUsuario(){
-
+		/*
+						0   ,                1,                   2,               3,    4 ,     5,   6,  7
+			usuarioDetectado, orientacion_izq, orientacion_neutral, orientacion_der, camina, mano, fecha obtiene datos, fecha envia datos
+		*/
 		if (obtenerMensaje() != null) {
 
 			string[] datosCSV = obtenerMensaje().Split(","[0]);
@@ -60,21 +65,21 @@ public class Usuario : MonoBehaviour {
 			}
 
 
-			if (datosCSV [5] == "1") {
+			if (datosCSV [4] == "1") {
 				asignaCamina(true);
 			} else {
 				asignaCamina(false);
 			}
 
 
-			if (datosCSV[6] == "1"){
+			if (datosCSV[5] == "1"){
 				asignaLevantaMano(true);
 			}else{
 				asignaLevantaMano(false);
 			}
 			
-			obtieneDatos = DateTime.ParseExact(datosCSV[7], formato, null);
-			enviaDatos = DateTime.ParseExact(datosCSV[8], formato, null);
+			obtieneDatos = DateTime.ParseExact(datosCSV[6], formato, null);
+			enviaDatos = DateTime.ParseExact(datosCSV[7], formato, null);
 		}
 
 		Debug.Log(mensaje);
@@ -93,10 +98,12 @@ public class Usuario : MonoBehaviour {
 		print ("Comenzo el hilo");
 		DateTime hoy = new DateTime();
 		nombre_archivo = "latencia-"+hoy.ToString("dd-MMM-HH-mm-ss")+".txt";
+		sw = new StreamWriter(nombre_archivo);
 	}
 	
 	//Stop the thread
 	public void stopListenning(){
+		sw.Close();
 		if (hiloUdp != null){
 			hiloUdp.Abort();
 			hiloUdp = null;
@@ -122,6 +129,7 @@ public class Usuario : MonoBehaviour {
 				mensaje = System.Text.Encoding.ASCII.GetString(datos, 0, datos.Length);
 				print(mensaje);
 				actualizaDatosUsuario();
+				seActualizaInformacion();
 				//To handle errors
 			} catch (Exception e){
 				//debug
@@ -131,9 +139,7 @@ public class Usuario : MonoBehaviour {
 	}
 
 	public void seActualizaInformacion(){
-		StreamWriter sw = new StreamWriter(nombre_archivo);
 		sw.WriteLine("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato));
-		sw.Close();
 	}
 
 	private void asignaCamina(bool camina){
