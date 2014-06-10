@@ -16,7 +16,7 @@ public PVector ultimoRodillaDerecha;
 public PVector ultimoRodillaIzquierda;
 
 public Date tiempo;
-public SimpleDateFormat formaFecha;
+public SimpleDateFormat formatoFecha;
 
 //umbral para determinar movimiento aceptable entre coordenadas
 public static final int UMBRAL = 1;
