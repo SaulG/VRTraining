@@ -80,6 +80,7 @@ public class Usuario : MonoBehaviour {
 			
 			obtieneDatos = DateTime.ParseExact(datosCSV[6], formato, null);
 			enviaDatos = DateTime.ParseExact(datosCSV[7], formato, null);
+			actualizaInformacion = DateTime.Now;
 		}
 
 		Debug.Log(mensaje);
@@ -96,14 +97,16 @@ public class Usuario : MonoBehaviour {
 		hiloUdp.Start();
 		//debug
 		print ("Comenzo el hilo");
-		DateTime hoy = new DateTime();
-		nombre_archivo = "latencia-"+hoy.ToString("dd-MMM-HH-mm-ss")+".txt";
+		DateTime hoy = DateTime.Now;
+		string hoy_str = hoy.ToString ("dd-MMM-HH-mm-ss");
+		nombre_archivo = "latencia-"+hoy_str+".txt";
 		sw = new StreamWriter(nombre_archivo);
 	}
 	
 	//Stop the thread
 	public void stopListenning(){
 		sw.Close();
+		sw.Dispose ();
 		if (hiloUdp != null){
 			hiloUdp.Abort();
 			hiloUdp = null;
@@ -128,6 +131,7 @@ public class Usuario : MonoBehaviour {
 				//Getting the data from the bytes array
 				mensaje = System.Text.Encoding.ASCII.GetString(datos, 0, datos.Length);
 				print(mensaje);
+				recibeDatosTiempo = DateTime.Now;
 				actualizaDatosUsuario();
 				seActualizaInformacion();
 				//To handle errors
