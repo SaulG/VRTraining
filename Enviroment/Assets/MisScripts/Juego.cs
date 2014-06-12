@@ -109,17 +109,17 @@ public class Juego : VRGUI {
 		referenciaWidth = Screen.width/8;
 
 		if (coloresVisitados != colores.Count){
-			if (muestraInstrucciones) {
-				GUI.Box (new Rect (referenciaWidth, referenciaHeight,350, 100), "", cajaEstilo);
-				GUI.Label (new Rect (referenciaWidth+30, referenciaHeight+0, 160, 20), mensajeInstruccionesTitulo, tituloEstilo);
-				GUI.Label (new Rect (referenciaWidth+20, referenciaHeight+30, 340, 100), mensajeInstruccionesCuerpo, cuerpoEstilo);
-				GUI.Label (new Rect (referenciaWidth+20, referenciaHeight+60, 350, 50), "1.-" + colores [0], obtenerEstilo (colores [0]));
-				GUI.Label (new Rect (referenciaWidth+20, referenciaHeight+80, 350, 50), "2.-" + colores [1], obtenerEstilo (colores [1]));
-				GUI.Label (new Rect (referenciaWidth+100, referenciaHeight+60, 350, 50), "3.-" + colores [2], obtenerEstilo (colores [2]));
-				GUI.Label (new Rect (referenciaWidth+100, referenciaHeight+80, 350, 50), "4.-" + colores [3], obtenerEstilo (colores [3]));
+			if (!muestraInstrucciones) {
+				GUI.Box (new Rect (referenciaWidth, referenciaHeight+50,480, 320), "", cajaEstilo);
+				GUI.Label (new Rect (referenciaWidth+30, referenciaHeight+50, 160, 20), mensajeInstruccionesTitulo, tituloEstilo);
+				GUI.Label (new Rect (referenciaWidth+20, referenciaHeight+80, 460, 320), mensajeInstruccionesCuerpo, cuerpoEstilo);
+				GUI.Label (new Rect (referenciaWidth+20, referenciaHeight+160, 350, 50), "1.-" + colores [0], obtenerEstilo (colores [0]));
+				GUI.Label (new Rect (referenciaWidth+20, referenciaHeight+200, 350, 50), "2.-" + colores [1], obtenerEstilo (colores [1]));
+				GUI.Label (new Rect (referenciaWidth+200, referenciaHeight+160, 350, 50), "3.-" + colores [2], obtenerEstilo (colores [2]));
+				GUI.Label (new Rect (referenciaWidth+200, referenciaHeight+200, 350, 50), "4.-" + colores [3], obtenerEstilo (colores [3]));
 			} else {
 				mensajeColoresVisitados = obtenMensajeColoresVisitados();
-				GUI.Label(new Rect (20, 5, 340, 100), mensajeColoresVisitados, coloresVisitadosEstilo);
+				GUI.Label(new Rect (80, 20, 340, 100), mensajeColoresVisitados, coloresVisitadosEstilo);
 			}
 		}else{
 			gameState.Instance.asignaNivel("Puntuajes");
