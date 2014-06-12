@@ -8,6 +8,7 @@ import SimpleOpenNI.*;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Calendar;
 
 public SimpleOpenNI context;
 
@@ -19,7 +20,7 @@ public Date tiempo;
 public SimpleDateFormat formatoFecha;
 
 //umbral para determinar movimiento aceptable entre coordenadas
-public static final int UMBRAL = 1;
+public static final int UMBRAL = 5;
 public static final float CONFIDENCIA = 0.85;
 
 // the remote IP address
@@ -33,8 +34,8 @@ public String camina_msj;
 public String orientacion_msj;
 public String mano_msj;
 public String usuarioDetectado_msj;
-public String obtieneDatos;
-public String enviaDatos;
+public Date obtieneDatos;
+public Date enviaDatos;
 
 void setup(){
   camina_msj = "0";
@@ -63,7 +64,7 @@ void setup(){
   
   //habilita la generacion de las uniones del esqueleto
   context.enableUser();
-  formatoFecha = new SimpleDateFormat("MM dd yyyy HH:mm:ss.fff");
+  formatoFecha = new SimpleDateFormat("MM dd yyyy HH:mm:ss.SSS");
   
 }
 
@@ -72,7 +73,7 @@ void draw() {
     //actualiza la informacion de la camara del kinect
     context.update();
     tiempo = new Date();
-    obtieneDatos = tiempo.toString();
+    obtieneDatos = Calendar.getInstance().getTime();//.toString();
     //guarda la imagen del ususario en una imagen
     image(context.userImage(), 0, 0);
    
@@ -85,7 +86,7 @@ void draw() {
          camina_msj = deteccionCamina(listaUsuarios[i]);
          mano_msj = deteccionMano(listaUsuarios[i]);
          tiempo = new Date();
-         enviaDatos = tiempo.toString();
+         enviaDatos = Calendar.getInstance().getTime();
          udp.send(usuarioDetectado_msj+','+orientacion_msj+','+camina_msj+','+mano_msj+','+formatoFecha.format(obtieneDatos)+','+formatoFecha.format(enviaDatos),ip, port);
       }        
        
