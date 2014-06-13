@@ -159,10 +159,10 @@ public class Juego : VRGUI {
 	}
 
 	void verificaPosicionUsuario(){
-		print("Verficiando");
+		//print("Verficiando");
 		Vector3 posicionActual = jugador.transform.position;
 		bool cumpleUno = false;
-		print(System.String.Format("Posicion x:{0}, y:{1}, z: {2}", posicionActual.x, posicionActual.y, posicionActual.z));
+		//print(System.String.Format("Posicion x:{0}, y:{1}, z: {2}", posicionActual.x, posicionActual.y, posicionActual.z));
 		if( ( ( posicionActual.x > 68.0 ) && ( posicionActual.x < 98.0 )  ) && ( ( posicionActual.z > 2.0 ) && ( posicionActual.z < 32.0 )  ) ){
 		 	if(!(dentroArea)){
 				dentroArea = true;

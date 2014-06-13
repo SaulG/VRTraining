@@ -143,7 +143,8 @@ public class Usuario : MonoBehaviour {
 	}
 
 	public void seActualizaInformacion(){
-		sw.WriteLine("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato));
+		//Debug.Log ("Se actualiza la informacion");
+		sw.WriteLine(String.Format ("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato)));
 	}
 
 	private void asignaCamina(bool camina){
