@@ -96,7 +96,7 @@ public class Usuario : MonoBehaviour {
 		//Start the thread
 		hiloUdp.Start();
 		//debug
-		print ("Comenzo el hilo");
+		Debug.Log("Comenzo el hilo");
 		DateTime hoy = DateTime.Now;
 		string hoy_str = hoy.ToString ("dd-MMM-HH-mm-ss");
 		nombre_archivo = "latencia-"+hoy_str+".txt";
@@ -144,6 +144,7 @@ public class Usuario : MonoBehaviour {
 
 	private void seActualizaInformacion(){
 		Debug.Log ("Se actualiza la informacion");
+		Debug.Log (String.Format ("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato)));
 		sw.WriteLine(String.Format ("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato)));
 	}
 
