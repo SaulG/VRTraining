@@ -100,7 +100,7 @@ public class Usuario : MonoBehaviour {
 		DateTime hoy = DateTime.Now;
 		string hoy_str = hoy.ToString ("dd-MMM-HH-mm-ss");
 		nombre_archivo = "latencia-"+hoy_str+".txt";
-		sw = new StreamWriter(nombre_archivo);
+		sw = File.CreateText(nombre_archivo);
 	}
 	
 	//Stop the thread
