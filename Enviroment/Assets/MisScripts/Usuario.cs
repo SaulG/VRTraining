@@ -105,8 +105,6 @@ public class Usuario : MonoBehaviour {
 	
 	//Stop the thread
 	public void stopListenning(){
-		sw.Close();
-		sw.Dispose ();
 		if (hiloUdp != null){
 			hiloUdp.Abort();
 			hiloUdp = null;
@@ -145,7 +143,9 @@ public class Usuario : MonoBehaviour {
 	private void seActualizaInformacion(){
 		Debug.Log ("Se actualiza la informacion");
 		Debug.Log (String.Format ("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato)));
+		sw = File.CreateText(nombre_archivo);
 		sw.WriteLine(String.Format ("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato)));
+		sw.Close ();
 	}
 
 	private void asignaCamina(bool camina){
