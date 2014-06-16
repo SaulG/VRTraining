@@ -14,7 +14,7 @@ public class Usuario : MonoBehaviour {
 
 	private static int puerto = 1600;
 	private static string direccionIp = "127.0.0.1";
-	private static string formato = "MM dd yyy HH:mm:ss.fff";
+	private static string formato = "MM dd yyyy HH:mm:ss.fff";
 	private Thread hiloUdp;
 	private UdpClient clienteUdp;
 	private string mensaje;
