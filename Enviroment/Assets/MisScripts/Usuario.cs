@@ -29,7 +29,7 @@ public class Usuario : MonoBehaviour {
 	private DateTime recibeDatosTiempo;
 	private DateTime actualizaInformacion;
 
-	private StreamWriter sw;
+	private TextWriter tw;
 
 	public Usuario(){
 		this.orientacion = "neutral";
@@ -82,11 +82,7 @@ public class Usuario : MonoBehaviour {
 			enviaDatos = DateTime.ParseExact(datosCSV[7], formato, null);
 			actualizaInformacion = DateTime.Now;
 		}
-		Debug.Log ("Se actualiza la informacion");
-		Debug.Log (String.Format ("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato)));
-		sw = File.CreateText(nombre_archivo);
-		sw.WriteLine(String.Format ("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato)));
-		sw.Close ();
+		seActualizaInformacion ();
 		//Debug.Log(mensaje);
 	}
 
@@ -104,7 +100,6 @@ public class Usuario : MonoBehaviour {
 		DateTime hoy = DateTime.Now;
 		string hoy_str = hoy.ToString ("dd-MMM-HH-mm-ss");
 		nombre_archivo = "latencia-"+hoy_str+".txt";
-		sw = File.CreateText(nombre_archivo);
 	}
 	
 	//Stop the thread
@@ -135,7 +130,6 @@ public class Usuario : MonoBehaviour {
 				print(mensaje);
 				recibeDatosTiempo = DateTime.Now;
 				actualizaDatosUsuario();
-				seActualizaInformacion();
 				//To handle errors
 			} catch (Exception e){
 				//debug
@@ -145,7 +139,11 @@ public class Usuario : MonoBehaviour {
 	}
 
 	private void seActualizaInformacion(){
-
+		Debug.Log ("Se actualiza la informacion");
+		Debug.Log (String.Format ("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato)));
+		tw = File.CreateText(nombre_archivo);
+		tw.WriteLine(String.Format ("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato)));
+		tw.Close ();
 	}
 
 	private void asignaCamina(bool camina){
