@@ -35,6 +35,17 @@ public class gameState : MonoBehaviour {
 		usuarioDatos.stopListenning ();
 		usuarioDatos = null;
 	}
+
+	public void Update() {
+		if (Input.GetKey ("escape")) {
+				instance = null;
+				usuarioDatos.stopListenning ();
+				usuarioDatos = null;
+				Application.Quit ();
+		}
+		
+	}
+
 	// ---------------------------------------------------------------------------------------------------
 	
 	
