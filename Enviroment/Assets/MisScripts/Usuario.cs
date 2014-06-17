@@ -13,7 +13,7 @@ using System.Net;
 public class Usuario : MonoBehaviour {
 
 	private static int puerto = 1600;
-	private static string direccionIp = "127.0.0.1";
+	private static string direccionIp = "10.0.1.3";//"127.0.0.1";
 	private static string formato = "MM dd yyyy HH:mm:ss.fff";
 	private Thread hiloUdp;
 	private UdpClient clienteUdp;
@@ -28,7 +28,9 @@ public class Usuario : MonoBehaviour {
 	private DateTime enviaDatos;
 	private DateTime recibeDatosTiempo;
 	private DateTime actualizaInformacion;
-
+	private bool bandera_lateUpdate;
+	private DateTime tiempoLateUpdate;
+	
 	private TextWriter tw;
 
 	public Usuario(){
@@ -36,6 +38,7 @@ public class Usuario : MonoBehaviour {
 		this.camina = false;
 		this.levantaMano = false;
 		this.mensaje = "";
+		this.bandera_lateUpdate = false;
 		init();
 	}
 
@@ -77,13 +80,14 @@ public class Usuario : MonoBehaviour {
 			}else{
 				asignaLevantaMano(false);
 			}
-			
-			obtieneDatos = DateTime.ParseExact(datosCSV[6], formato, null);
-			enviaDatos = DateTime.ParseExact(datosCSV[7], formato, null);
-			actualizaInformacion = DateTime.Now;
+			if(!bandera_lateUpdate) {
+				obtieneDatos = DateTime.ParseExact(datosCSV[6], formato, null);
+				enviaDatos = DateTime.ParseExact(datosCSV[7], formato, null);
+			}
 		}
 		seActualizaInformacion ();
 		//Debug.Log(mensaje);
+
 	}
 
 	//Initialize the thread to run in background
@@ -128,10 +132,10 @@ public class Usuario : MonoBehaviour {
 				//Getting the data from the bytes array
 				mensaje = System.Text.Encoding.ASCII.GetString(datos, 0, datos.Length);
 				print(mensaje);
-				if(!gameState.Instance.obtenerBanderaLateUpdate()) {
+				if(!bandera_lateUpdate){
 					recibeDatosTiempo = DateTime.Now;
-					actualizaDatosUsuario();
 				}
+				actualizaDatosUsuario();
 				//To handle errors
 			} catch (Exception e){
 				//debug
@@ -142,12 +146,12 @@ public class Usuario : MonoBehaviour {
 
 	private void seActualizaInformacion(){
 		Debug.Log ("Se actualiza la informacion");
-		Debug.Log (String.Format ("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato)));
-		if(gameState.Instance.obtenerBanderaLateUpdate()) {
+		//Debug.Log (String.Format ("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato)));
+		if(bandera_lateUpdate) {
 			tw = new StreamWriter(nombre_archivo, true);
-			tw.WriteLine(String.Format ("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato)));
+			tw.WriteLine(String.Format ("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), tiempoLateUpdate.ToString(formato)));
 			tw.Close ();
-			gameState.Instance.asignaBanderaLateUpdate(false);
+			asignaBanderaLateUpdate(false);
 		}
 	}
 
@@ -188,5 +192,22 @@ public class Usuario : MonoBehaviour {
 
 	public string obtenerMensaje(){
 		return mensaje;
+	}
+
+	public void asignaBanderaLateUpdate(bool bandera){
+		bandera_lateUpdate = bandera;
+	}
+	
+	public bool obtenerBanderaLateUpdate(){
+		return bandera_lateUpdate;
+	}
+	
+	
+	public void asignaTiempoLateUpdate(DateTime tiempo){
+		tiempoLateUpdate = tiempo;
+	}
+	
+	public DateTime obtenerTiempoLateUpdate(){
+		return tiempoLateUpdate;
 	}
 }

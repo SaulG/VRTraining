@@ -2,7 +2,6 @@
 using System.Collections;
 using System.IO;
 using System.Collections.Generic;
-using System;
 
 
 public class Puntuajes : VRGUI {
@@ -52,14 +51,6 @@ public class Puntuajes : VRGUI {
 		if(gameState.Instance.obtenerLevantaMano()){
 			cambiarEstado();
 		}
-	}
-	public void Update(){
-		gameState.Instance.asignaBanderaLateUpdate (false);
-	}
-	
-	public void LateUpdate(){
-		gameState.Instance.asignaTiempoLateUpdate (DateTime.Now);
-		gameState.Instance.asignaBanderaLateUpdate (true);
 	}
 	
 	private void cambiarEstado(){

@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 
-public class EsperaUsuario : VRGUI {
+public class esperaUsuario : VRGUI {
 
 	private string mensajeDeteccionUsuario;
 	private string mensajeLevantaMano;
@@ -22,15 +21,6 @@ public class EsperaUsuario : VRGUI {
 		} else {
 			cambiaEstado();		
 		}
-	}
-
-	public void Update(){
-		gameState.Instance.asignaBanderaLateUpdate (false);
-	}
-
-	public void LateUpdate(){
-		gameState.Instance.asignaTiempoLateUpdate (DateTime.Now);
-		gameState.Instance.asignaBanderaLateUpdate (true);
 	}
 	
 	private void cambiaEstado(){
