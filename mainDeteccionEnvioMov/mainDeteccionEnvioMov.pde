@@ -24,7 +24,7 @@ public static final int UMBRAL = 5;
 public static final float CONFIDENCIA = 0.85;
 
 // the remote IP address
-public static final String ip = "127.0.0.1";
+public static final String ip = "10.0.1.57";//"127.0.0.1";
 
 // the destination port
 public static final int port = 1600;  
@@ -98,7 +98,7 @@ void draw() {
 //obtiene la orientacion del torse
 String orientacionTorso(int usuarioId){
  PVector position = new PVector();
- String mensaje = "0,0,0,0";
+ String mensaje = "0,0,0";
  
  context.getJointPositionSkeleton(usuarioId, SimpleOpenNI.SKEL_TORSO, position);
 
