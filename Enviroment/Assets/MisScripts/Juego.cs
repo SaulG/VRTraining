@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-
 public class Juego : VRGUI {
 
 	private static bool DEBUGEANDO = true;
@@ -70,8 +69,14 @@ public class Juego : VRGUI {
 			changeInstructionsState();
 		ultimoCambioEstado += Time.deltaTime;
 		verificaPosicionUsuario();
+		gameState.Instance.asignaBanderaLateUpdate (false);
 	}
 	
+	public void LateUpdate(){
+		gameState.Instance.asignaTiempoLateUpdate (System.DateTime.Now);
+		gameState.Instance.asignaBanderaLateUpdate (true);
+	}
+
 	public List<string> randomizeList(){
 		int n = colores.Count;
 		while (n > 1){

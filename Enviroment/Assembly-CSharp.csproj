@@ -47,12 +47,12 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\MisScripts\Comienza.cs" />
-     <Compile Include="Assets\MisScripts\EsperaUsuario.cs" />
      <Compile Include="Assets\MisScripts\GUIGame.cs" />
      <Compile Include="Assets\MisScripts\Juego.cs" />
      <Compile Include="Assets\MisScripts\Puntuajes.cs" />
      <Compile Include="Assets\MisScripts\UDPClient.cs" />
      <Compile Include="Assets\MisScripts\Usuario.cs" />
+     <Compile Include="Assets\MisScripts\esperaUsuario.cs" />
      <Compile Include="Assets\MisScripts\gameState.cs" />
      <Compile Include="Assets\OVR\OVRImageEffects\OVRImageEffectBase.cs" />
      <Compile Include="Assets\OVR\OVRImageEffects\OVRLensCorrection.cs" />

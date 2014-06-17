@@ -141,6 +141,9 @@ public class Usuario : MonoBehaviour {
 	private void seActualizaInformacion(){
 		Debug.Log ("Se actualiza la informacion");
 		Debug.Log (String.Format ("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato)));
+		while (!gameState.Instance.obtenerBanderaLateUpdate()) {
+			Debug.Log ("Esperando informacion");
+		}
 		tw = new StreamWriter(nombre_archivo, true);
 		tw.WriteLine(String.Format ("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato)));
 		tw.Close ();

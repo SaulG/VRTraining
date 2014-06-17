@@ -2,6 +2,8 @@
 using System.Collections;
 using System.IO;
 using System.Collections.Generic;
+using System;
+
 
 public class Puntuajes : VRGUI {
 
@@ -51,7 +53,15 @@ public class Puntuajes : VRGUI {
 			cambiarEstado();
 		}
 	}
-
+	public void Update(){
+		gameState.Instance.asignaBanderaLateUpdate (false);
+	}
+	
+	public void LateUpdate(){
+		gameState.Instance.asignaTiempoLateUpdate (DateTime.Now);
+		gameState.Instance.asignaBanderaLateUpdate (true);
+	}
+	
 	private void cambiarEstado(){
 		gameState.Instance.asignaNivel("Comienza");
         Application.LoadLevel("comienza");

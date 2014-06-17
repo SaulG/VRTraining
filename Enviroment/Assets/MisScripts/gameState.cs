@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 
 public class gameState : MonoBehaviour {
@@ -10,6 +11,8 @@ public class gameState : MonoBehaviour {
 	private Usuario usuarioDatos;
 	private string nivelActivo;
 	private float tiempoInicial;
+	private bool bandera_lateUpdate;
+	private DateTime tiempoLateUpdate;
 
 	// ---------------------------------------------------------------------------------------------------
 	// gamestate()
@@ -36,16 +39,6 @@ public class gameState : MonoBehaviour {
 		usuarioDatos = null;
 	}
 
-	public void Update() {
-		if (Input.GetKey ("escape")) {
-				instance = null;
-				usuarioDatos.stopListenning ();
-				usuarioDatos = null;
-				Application.Quit ();
-		}
-		
-	}
-
 	// ---------------------------------------------------------------------------------------------------
 	
 	
@@ -56,7 +49,7 @@ public class gameState : MonoBehaviour {
 	// ---------------------------------------------------------------------------------------------------
 	public void esperarDeteccionUsuario(){
 		usuarioDatos= new Usuario();
-
+		bandera_lateUpdate = false;
 		Application.LoadLevel ("esperaUsuario");
 
 	}
@@ -106,6 +99,23 @@ public class gameState : MonoBehaviour {
 
 	public float obtenerTiempoInicial(){
 		return tiempoInicial;
+	}
+
+	public void asignaBanderaLateUpdate(bool bandera){
+		bandera_lateUpdate = bandera;
+	}
+
+	public bool obtenerBanderaLateUpdate(){
+		return bandera_lateUpdate;
+	}
+
+
+	public void asignaTiempoLateUpdate(DateTime tiempo){
+		tiempoLateUpdate = tiempo;
+	}
+
+	public DateTime obtenerTiempoLateUpdate(){
+		return tiempoLateUpdate;
 	}
 	/*
 	var stopwatch:System.Diagnostics.Stopwatch  = new System.Diagnostics.Stopwatch();

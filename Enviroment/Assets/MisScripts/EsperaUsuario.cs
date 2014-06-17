@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class EsperaUsuario : VRGUI {
 
@@ -23,6 +24,15 @@ public class EsperaUsuario : VRGUI {
 		}
 	}
 
+	public void Update(){
+		gameState.Instance.asignaBanderaLateUpdate (false);
+	}
+
+	public void LateUpdate(){
+		gameState.Instance.asignaTiempoLateUpdate (DateTime.Now);
+		gameState.Instance.asignaBanderaLateUpdate (true);
+	}
+	
 	private void cambiaEstado(){
 		print("Comienzando estado de cuarto");
 		gameState.Instance.asignaNivel("Cuarto");
