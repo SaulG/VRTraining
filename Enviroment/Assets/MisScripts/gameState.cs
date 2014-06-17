@@ -11,8 +11,7 @@ public class gameState : MonoBehaviour {
 	private Usuario usuarioDatos;
 	private string nivelActivo;
 	private float tiempoInicial;
-	private bool bandera_lateUpdate;
-	private DateTime tiempoLateUpdate;
+
 
 	// ---------------------------------------------------------------------------------------------------
 	// gamestate()
@@ -34,9 +33,9 @@ public class gameState : MonoBehaviour {
 	
 	// Sets the instance to null when the application quits
 	public void OnApplicationQuit(){
-		instance = null;
 		usuarioDatos.stopListenning ();
 		usuarioDatos = null;
+		instance = null;
 	}
 
 	// ---------------------------------------------------------------------------------------------------
@@ -48,8 +47,7 @@ public class gameState : MonoBehaviour {
 	// Crea un estado donde se juega el juego.
 	// ---------------------------------------------------------------------------------------------------
 	public void esperarDeteccionUsuario(){
-		usuarioDatos= new Usuario();
-		bandera_lateUpdate = false;
+		usuarioDatos = new Usuario();
 		Application.LoadLevel ("esperaUsuario");
 
 	}
@@ -101,22 +99,22 @@ public class gameState : MonoBehaviour {
 		return tiempoInicial;
 	}
 
-	public void asignaBanderaLateUpdate(bool bandera){
-		bandera_lateUpdate = bandera;
-	}
-
-	public bool obtenerBanderaLateUpdate(){
-		return bandera_lateUpdate;
-	}
-
-
-	public void asignaTiempoLateUpdate(DateTime tiempo){
-		tiempoLateUpdate = tiempo;
+	public void asignaTiempoLateUpdate (DateTime fecha){
+		usuarioDatos.asignaTiempoLateUpdate (fecha);
 	}
 
 	public DateTime obtenerTiempoLateUpdate(){
-		return tiempoLateUpdate;
+		return usuarioDatos.obtenerTiempoLateUpdate();
 	}
+
+	public void asignaBanderaLateUpdate(bool bandera){
+		usuarioDatos.asignaBanderaLateUpdate (bandera);
+	}
+
+	public bool obtenerBanderaLateUpdate(){
+		return usuarioDatos.obtenerBanderaLateUpdate ();
+	}
+
 	/*
 	var stopwatch:System.Diagnostics.Stopwatch  = new System.Diagnostics.Stopwatch();
 	stopwatch.Start();
