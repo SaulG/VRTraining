@@ -128,8 +128,10 @@ public class Usuario : MonoBehaviour {
 				//Getting the data from the bytes array
 				mensaje = System.Text.Encoding.ASCII.GetString(datos, 0, datos.Length);
 				print(mensaje);
-				recibeDatosTiempo = DateTime.Now;
-				actualizaDatosUsuario();
+				if(!gameState.Instance.obtenerBanderaLateUpdate()) {
+					recibeDatosTiempo = DateTime.Now;
+					actualizaDatosUsuario();
+				}
 				//To handle errors
 			} catch (Exception e){
 				//debug
@@ -141,12 +143,12 @@ public class Usuario : MonoBehaviour {
 	private void seActualizaInformacion(){
 		Debug.Log ("Se actualiza la informacion");
 		Debug.Log (String.Format ("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato)));
-		while (!gameState.Instance.obtenerBanderaLateUpdate()) {
-			Debug.Log ("Esperando informacion");
+		if(gameState.Instance.obtenerBanderaLateUpdate()) {
+			tw = new StreamWriter(nombre_archivo, true);
+			tw.WriteLine(String.Format ("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato)));
+			tw.Close ();
+			gameState.Instance.asignaBanderaLateUpdate(false);
 		}
-		tw = new StreamWriter(nombre_archivo, true);
-		tw.WriteLine(String.Format ("{0},{1},{2},{3}",obtieneDatos.ToString(formato), enviaDatos.ToString(formato), recibeDatosTiempo.ToString(formato), actualizaInformacion.ToString(formato)));
-		tw.Close ();
 	}
 
 	private void asignaCamina(bool camina){
