@@ -1,7 +1,7 @@
 from datetime import datetime
 from sys import argv
 
-FORMATO_FECHA = '%m %d %y %H:%M:%S.%f'
+FORMATO_FECHA = '%m %d %Y %H:%M:%S.%f'
 def parseaTiempos(archivo):
     a = open(archivo, 'r')
     p = open(archivo+'-parseado','w')
