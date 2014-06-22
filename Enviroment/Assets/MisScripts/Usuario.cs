@@ -13,7 +13,7 @@ using System.Net;
 public class Usuario : MonoBehaviour {
 
 	private static int puerto = 1600;
-	private static string direccionIp = "10.0.1.3";//"127.0.0.1";
+	private static string direccionIp = "192.168.0.100";//"127.0.0.1";
 	private static string formato = "MM dd yyyy HH:mm:ss.fff";
 	private Thread hiloUdp;
 	private UdpClient clienteUdp;

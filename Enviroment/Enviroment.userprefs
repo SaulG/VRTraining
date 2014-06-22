@@ -1,13 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/MisScripts/Usuario.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/MisScripts/Juego.cs">
     <Files>
-      <File FileName="Assets/MisScripts/Puntuajes.cs" Line="3" Column="17" />
-      <File FileName="Assets/MisScripts/gameState.cs" Line="87" Column="1" />
-      <File FileName="Assets/MisScripts/Juego.cs" Line="72" Column="3" />
-      <File FileName="Assets/MisScripts/comienza.cs" Line="15" Column="31" />
-      <File FileName="Assets/MisScripts/esperaUsuario.cs" Line="5" Column="2" />
-      <File FileName="Assets/MisScripts/Usuario.cs" Line="135" Column="9" />
+      <File FileName="Assets/MisScripts/Puntuajes.cs" Line="1" Column="1" />
+      <File FileName="Assets/MisScripts/gameState.cs" Line="1" Column="1" />
+      <File FileName="Assets/MisScripts/Juego.cs" Line="75" Column="18" />
+      <File FileName="Assets/MisScripts/comienza.cs" Line="1" Column="1" />
+      <File FileName="Assets/MisScripts/esperaUsuario.cs" Line="1" Column="1" />
+      <File FileName="Assets/MisScripts/Usuario.cs" Line="9" Column="18" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
