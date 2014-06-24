@@ -4,7 +4,6 @@ from subprocess import call
 NOMBRE_ARCHIVO_LATENCIAS = 'latencias.dat'
 
 def generaDatos(cantidad_de_datos, cantidad_de_etapas):    
-    cantidad_de_etapas = cantidad_de_etapas - 1
     f = open(NOMBRE_ARCHIVO_LATENCIAS, 'w')
     randint(1,5)
     minimos = [3, 20, 4, 6, 30]

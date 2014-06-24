@@ -32,7 +32,7 @@ gnuplot prueba.plot
 open prueba.eps
 # obtiene las latencias totales de cada una de las etapas
 # y los manda a un nuevo archivo llamado totales
-awk '{print $4}' < latencias.dat > totales.dat
+awk '{print $5}' < latencias.dat > totales.dat
 #remueve el archivo viejo de totales.eps
 rm totales.eps
 #corre el script de gnuplot con los datos generados de los totales.dat
